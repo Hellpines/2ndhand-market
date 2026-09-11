@@ -1,0 +1,82 @@
+import { useState } from 'react';
+import { useGetCategoriesTreeQuery } from '../../services/productsApi';
+import { DEPARTMENT_MAP } from '../../constants/categories';
+import style from './Sidebar.module.css';
+
+const ChevronIcon = ({ isOpen }) => (
+  <svg
+    className={`${style.arrow} ${isOpen ? style.open : ''}`}
+    width="12"
+    height="8"
+    viewBox="0 0 12 8"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M1 1.5L6 6.5L11 1.5"
+      stroke="#2D3748"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export default function Sidebar({ activeDepartment = 'new', activeCategory, onSelectCategory }) {
+  const { data: categoryTree, isLoading } = useGetCategoriesTreeQuery();
+  const [openSection, setOpenSection] = useState('Accessories');
+
+  if (isLoading) return <aside className={style.sidebar}>Загрузка...</aside>;
+
+  const allowedSlugs = DEPARTMENT_MAP[activeDepartment];
+
+  const filteredTree = categoryTree
+    ?.map((group) => {
+      const filteredSlugs = allowedSlugs === 'all'
+        ? group.slugs
+        : group.slugs.filter((slug) => allowedSlugs.includes(slug));
+
+      return { ...group, slugs: filteredSlugs };
+    })
+    .filter((group) => group.slugs.length > 0);
+
+  return (
+    <aside className={style.sidebar}>
+      <div className={style.title}>Categories</div>
+      <ul className={style.list}>
+        {filteredTree?.map((group) => {
+          const isOpen = openSection === group.title;
+
+          return (
+            <li key={group.title} className={style.groupItem}>
+              <button
+                type="button"
+                className={style.groupHeader}
+                onClick={() => setOpenSection(isOpen ? null : group.title)}
+              >
+                <span className={style.groupTitle}>{group.title}</span>
+                <ChevronIcon isOpen={isOpen} />
+              </button>
+
+              {isOpen && (
+                <ul className={style.subList}>
+                  {group.slugs.map((slug) => (
+                    <li key={slug}>
+                      <button
+                        type="button"
+                        className={`${style.subItem} ${activeCategory === slug ? style.active : ''}`}
+                        onClick={() => onSelectCategory(slug)}
+                      >
+                        {slug.replace(/-/g, ' ')}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </aside>
+  );
+}

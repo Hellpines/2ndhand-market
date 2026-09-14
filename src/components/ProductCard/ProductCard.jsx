@@ -56,8 +56,7 @@ export default function ProductCard({ product }) {
         </button>
 
         <div className={style.badges}>
-          {product.id % 2 === 0 && <span className={style.badgeNew}>New</span>}
-          {product.id % 3 === 0 && <span className={style.badgeReserved}>Reserved</span>}
+          {product.isNew && <span className={style.badgeNew}>New</span>}
         </div>
       </div>
 

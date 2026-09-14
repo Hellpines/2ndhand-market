@@ -12,7 +12,7 @@ export default function ProductGrid({ activeDepartment, activeCategory }) {
 
   if (activeDepartment) {
     if (activeDepartment === 'new') {
-      products = products.filter((product) => product.isNew);
+      products = products.filter((product) => product.isNew === true);
     } else {
       products = products.filter((product) => product.department === activeDepartment);
     }

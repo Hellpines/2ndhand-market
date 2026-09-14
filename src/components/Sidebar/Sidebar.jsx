@@ -3,7 +3,7 @@ import { useGetCategoriesTreeQuery } from '../../services/productsApi';
 import { DEPARTMENT_MAP } from '../../constants/categories';
 import style from './Sidebar.module.css';
 
-const ChevronIcon = ({ isOpen }) => (
+const ChevronIcon = ({ isOpen, color = '#2D3748' }) => (
   <svg
     className={`${style.arrow} ${isOpen ? style.open : ''}`}
     width="12"
@@ -14,7 +14,7 @@ const ChevronIcon = ({ isOpen }) => (
   >
     <path
       d="M1 1.5L6 6.5L11 1.5"
-      stroke="#2D3748"
+      stroke={color}
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -25,20 +25,27 @@ const ChevronIcon = ({ isOpen }) => (
 export default function Sidebar({ activeDepartment = 'new', activeCategory, onSelectCategory }) {
   const { data: categoryTree, isLoading } = useGetCategoriesTreeQuery();
   const [openSection, setOpenSection] = useState('Accessories');
+  const [openSubSection, setOpenSubSection] = useState('Watches & Jewellery');
 
-  if (isLoading) return <aside className={style.sidebar}>Загрузка...</aside>;
+  if (isLoading) return <aside className={style.sidebar}>Loading...</aside>;
 
-  const allowedSlugs = DEPARTMENT_MAP[activeDepartment];
+  const allowedSlugs = activeDepartment ? DEPARTMENT_MAP[activeDepartment] : 'all';
 
   const filteredTree = categoryTree
     ?.map((group) => {
-      const filteredSlugs = allowedSlugs === 'all'
-        ? group.slugs
-        : group.slugs.filter((slug) => allowedSlugs.includes(slug));
+      const filteredSubcategories = group.subcategories
+        ?.map((sub) => {
+          const filteredItems = allowedSlugs === 'all'
+            ? sub.items
+            : sub.items.filter((item) => allowedSlugs.includes(item.slug));
 
-      return { ...group, slugs: filteredSlugs };
+          return { ...sub, items: filteredItems };
+        })
+        .filter((sub) => sub.items.length > 0);
+
+      return { ...group, subcategories: filteredSubcategories };
     })
-    .filter((group) => group.slugs.length > 0);
+    .filter((group) => group.subcategories && group.subcategories.length > 0);
 
   return (
     <aside className={style.sidebar}>
@@ -60,17 +67,38 @@ export default function Sidebar({ activeDepartment = 'new', activeCategory, onSe
 
               {isOpen && (
                 <ul className={style.subList}>
-                  {group.slugs.map((slug) => (
-                    <li key={slug}>
-                      <button
-                        type="button"
-                        className={`${style.subItem} ${activeCategory === slug ? style.active : ''}`}
-                        onClick={() => onSelectCategory(slug)}
-                      >
-                        {slug.replace(/-/g, ' ')}
-                      </button>
-                    </li>
-                  ))}
+                  {group.subcategories.map((sub) => {
+                    const isSubOpen = openSubSection === sub.title;
+
+                    return (
+                      <li key={sub.title} className={style.subGroupItem}>
+                        <button
+                          type="button"
+                          className={style.subHeader}
+                          onClick={() => setOpenSubSection(isSubOpen ? null : sub.title)}
+                        >
+                          <span className={style.subTitle}>{sub.title}</span>
+                          <ChevronIcon isOpen={isSubOpen} color="#718096" />
+                        </button>
+
+                        {isSubOpen && (
+                          <ul className={style.itemList}>
+                            {sub.items.map((item) => (
+                              <li key={item.slug}>
+                                <button
+                                  type="button"
+                                  className={`${style.itemBtn} ${activeCategory === item.slug ? style.active : ''}`}
+                                  onClick={() => onSelectCategory(item.slug)}
+                                >
+                                  {item.label}
+                                </button>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               )}
             </li>

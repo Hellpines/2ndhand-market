@@ -6,39 +6,19 @@ export const productsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://dummyjson.com/' }),
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: ({ category, department } = {}) => {
-        if (department === 'new') {
-          return 'products?sortBy=id&order=desc&limit=12';
-        }
-        if (category && category !== 'all') {
-          return `products/category/${category}`;
-        }
-        return 'products';
-      },
+      query: () => 'c/a0f7-c6a7-4ef9-a12e',
     }),
-    getCategoriesTree: builder.query({
-      query: () => 'products/category-list',
-      transformResponse: (rawCategories) => {
-        const assignedSlugs = new Set(CATEGORY_TREE.flatMap((group) => group.slugs));
-        const unassigned = rawCategories.filter(
-          (cat) => !assignedSlugs.has(typeof cat === 'string' ? cat : cat.slug)
-        );
 
-        return [
-          ...CATEGORY_TREE,
-          ...(unassigned.length > 0
-            ? [
-                {
-                  title: 'Other',
-                  slugs: unassigned.map((c) => (typeof c === 'string' ? c : c.slug)),
-                },
-              ]
-            : []),
-        ];
-      },
+    getCategoriesTree: builder.query({
+      query: () => 'c/a0f7-c6a7-4ef9-a12e',
+      transformResponse: () => CATEGORY_TREE,
     }),
+
     getProductById: builder.query({
-      query: (id) => `products/${id}`,
+      query: () => 'c/a0f7-c6a7-4ef9-a12e',
+      transformResponse: (response, meta, id) => {
+        return response.products?.find((item) => String(item.id) === String(id));
+      },
     }),
   }),
 });

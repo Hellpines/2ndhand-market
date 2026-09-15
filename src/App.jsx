@@ -11,8 +11,13 @@ export default function App() {
   const [activeCategory, setActiveCategory] = useState('all');
 
   const handleSelectDepartment = (deptId) => {
-    setActiveDepartment(deptId);
-    setActiveCategory('all');
+    if (activeDepartment === deptId) {
+      setActiveDepartment(null);
+      setActiveCategory('all');
+    } else {
+      setActiveDepartment(deptId);
+      setActiveCategory('all');
+    }
   };
 
   const handleSelectCategory = (slug) => {
@@ -24,6 +29,11 @@ export default function App() {
         setActiveDepartment(null);
       }
     }
+  };
+
+  const handleResetAll = () => {
+    setActiveDepartment(null);
+    setActiveCategory('all');
   };
 
   return (
@@ -43,6 +53,9 @@ export default function App() {
           <ProductGrid
             activeDepartment={activeDepartment}
             activeCategory={activeCategory}
+            onSelectDepartment={handleSelectDepartment}
+            onSelectCategory={handleSelectCategory}
+            onResetAll={handleResetAll}
           />
         </section>
       </main>

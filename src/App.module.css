@@ -15,5 +15,6 @@ body {
 .main {
     display: flex;
     min-height: 100vh;
-    gap: 48px   
+    gap: 48px;
+    padding: 48px;
 }

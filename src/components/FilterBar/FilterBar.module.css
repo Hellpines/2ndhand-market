@@ -1,0 +1,142 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.dropdownsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.select {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  width: 160px;
+  border-radius: 20px;
+  padding: 13px 12px;
+  font-size: 14px;
+  color: #64748b;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  appearance: auto;
+}
+
+.select:hover {
+  border-color: #cbd5e1;
+}
+
+.select:focus {
+  border-color: #94a3b8;
+}
+
+.saleBtn {
+  background-color: #f87171;
+  width: 140px;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 13px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+
+  & .dismissIcon {
+    width: 12px;
+    height: 12px;
+    color: #ffffff;
+    transition: 0.15s ease;
+  }
+}
+
+.saleBtn:hover {
+  opacity: 0.9;
+}
+
+.saleBtn:active {
+  transform: scale(0.98);
+}
+
+.saleActive {
+  background-color: #ef4444;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.chipsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.chip {
+  background-color: #E2E2E4;
+  color: #333333;
+  border-radius: 20px;
+  padding: 9px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  .chipRemove {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    .dismissIcon {
+      width: 12px;
+      height: 12px;
+      color: #757575;
+      transition: 0.15s ease;
+
+      &:hover {
+        color: #0f172a;
+      }
+    }
+  }
+}
+
+.sortRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.sortLabel {
+  color: #94a3b8;
+}
+
+.sortBtn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 0;
+  transition: color 0.2s ease;
+
+
+}
+
+.sortBtn:hover {
+  color: #F4717A;
+}
+
+.activeSort {
+  color: #F4717A;
+  font-weight: 600;
+}

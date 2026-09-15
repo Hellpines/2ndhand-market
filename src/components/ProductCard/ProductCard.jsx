@@ -1,18 +1,24 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleFavorite, selectFavorites } from '../../store/slices/favoritesSlice';
+import { addToCart, selectCartItems } from '../../store/slices/cartSlice';
 import style from './ProductCard.module.css';
 import BasketIcon from '../../assets/basket.svg';
 import HeartIcon from '../../assets/heart.svg';
 
 export default function ProductCard({ product }) {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [isAdded, setIsAdded] = useState(false);
+  const dispatch = useDispatch();
+
+  const favorites = useSelector(selectFavorites);
+  const cartItems = useSelector(selectCartItems);
+
+  const isFavorite = favorites.some((item) => item.id === product.id);
+  const isAdded = cartItems.some((item) => item.id === product.id);
 
   const price = Number(product.price) || 0;
   const originalPrice = Number(product.originalPrice) || 0;
   const discountPercent = Number(product.discountPercentage) || 0;
 
   const hasRealDiscount = originalPrice > price || discountPercent > 0;
-
   const formattedPrice = `${price.toFixed(2).replace('.', ',')} €`;
 
   let oldPriceFormatted = null;
@@ -34,14 +40,17 @@ export default function ProductCard({ product }) {
         <button
           type="button"
           className={style.favoriteBtn}
-          onClick={() => setIsFavorite(!isFavorite)}
-          aria-label="Add to wishlist"
+          onClick={() => dispatch(toggleFavorite(product))}
+          aria-label={isFavorite ? "Remove from wishlist" : "Add to wishlist"}
         >
-          <HeartIcon className={style.heartIcon} />
+          <HeartIcon
+            className={`${style.heartIcon} ${isFavorite ? style.favoriteActive : ''}`}
+          />
         </button>
 
         <div className={style.badges}>
           {product.isNew && <span className={style.badgeNew}>New</span>}
+          {product.isReserved && <span className={style.badgeReserved}>Reserved</span>}
           {hasRealDiscount && (
             <span className={style.badgeSale}>
               {discountPercent > 0 ? `-${Math.round(discountPercent)}%` : 'Sale'}
@@ -69,7 +78,7 @@ export default function ProductCard({ product }) {
             <button
               type="button"
               className={style.cartBtn}
-              onClick={() => setIsAdded(true)}
+              onClick={() => dispatch(addToCart(product))}
               aria-label="Add to cart"
             >
               <BasketIcon className={style.basketIcon} />

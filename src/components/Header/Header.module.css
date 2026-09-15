@@ -102,17 +102,17 @@
 }
 
 .navLink {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 600;
-  padding-bottom: 2px;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-  transition: border-color 0.2s ease;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    padding-bottom: 2px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    transition: border-color 0.2s ease;
 }
 
 .navLink:hover {
-  border-color: #ffffff;
+    border-color: #ffffff;
 }
 
 .actions {
@@ -137,7 +137,11 @@
 }
 
 .heartIcon {
-    color: #BB464E;
+    color:#ffffff;
+}
+
+.heartIconInactive {
+    color:#BB464E;
 }
 
 @media (max-width: 768px) {

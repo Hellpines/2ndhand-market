@@ -1,16 +1,44 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import style from './FilterBar.module.css';
 import DismissIcon from '../../assets/dismiss.svg';
+import ArrowIcon from '../../assets/arrow.svg';
 
 export default function FilterBar({
-  filters,
+  filters = {},
   onChangeFilters,
   sortBy,
   onChangeSort,
-  availableOptions = { colors: [], sizes: [], brands: [] },
+  availableOptions = {
+    colors: [],
+    sizes: [],
+    brands: [],
+    shops: [],
+    conditions: ['New', 'Used'],
+  },
 }) {
-  const handleSelectChange = (field, value) => {
-    onChangeFilters({ ...filters, [field]: value });
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleToggleOption = (field, value) => {
+    const currentList = filters[field] || [];
+    const nextList = currentList.includes(value)
+      ? currentList.filter((item) => item !== value)
+      : [...currentList, value];
+
+    onChangeFilters({
+      ...filters,
+      [field]: nextList,
+    });
   };
 
   const handleRemoveFilter = (field) => {
@@ -19,56 +47,58 @@ export default function FilterBar({
     onChangeFilters(updated);
   };
 
+  const toggleDropdown = (name) => {
+    setOpenDropdown(openDropdown === name ? null : name);
+  };
+
+  const filterConfigs = [
+    { key: 'colors', label: 'Color', options: availableOptions.colors || [] },
+    { key: 'sizes', label: 'Size', options: availableOptions.sizes || [] },
+    { key: 'brands', label: 'Brand', options: availableOptions.brands || [] },
+    { key: 'conditions', label: 'Condition', options: availableOptions.conditions || ['New', 'Used'] },
+    { key: 'shops', label: 'Shop', options: availableOptions.shops || [] },
+  ];
+
   return (
-    <div className={style.container}>
+    <div className={style.container} ref={dropdownRef}>
       <div className={style.dropdownsRow}>
-        <select
-          value={filters.color || ''}
-          onChange={(e) => handleSelectChange('color', e.target.value)}
-          className={style.select}
-        >
-          <option value="">Color</option>
-          {availableOptions.colors.map((c) => (
-            <option key={c} value={c}>{c}</option>
-          ))}
-        </select>
+        {filterConfigs.map(({ key, label, options }) => {
+          const selectedValues = filters[key] || [];
+          const isOpen = openDropdown === key;
 
-        <select
-          value={filters.size || ''}
-          onChange={(e) => handleSelectChange('size', e.target.value)}
-          className={style.select}
-        >
-          <option value="">Size</option>
-          {availableOptions.sizes.map((s) => (
-            <option key={s} value={s}>{s}</option>
-          ))}
-        </select>
+          return (
+            <div key={key} className={style.dropdownWrapper}>
+              <button
+                type="button"
+                className={`${style.select} ${selectedValues.length > 0 ? style.activeSelect : ''}`}
+                onClick={() => toggleDropdown(key)}
+              >
+                <span>{label}</span>
+                <ArrowIcon/>
+              </button>
 
-        <select
-          value={filters.brand || ''}
-          onChange={(e) => handleSelectChange('brand', e.target.value)}
-          className={style.select}
-        >
-          <option value="">Brand</option>
-          {availableOptions.brands.map((b) => (
-            <option key={b} value={b}>{b}</option>
-          ))}
-        </select>
-
-        <select
-          value={filters.condition || ''}
-          onChange={(e) => handleSelectChange('condition', e.target.value)}
-          className={style.select}
-        >
-          <option value="">Condition</option>
-          <option value="New">New</option>
-          <option value="Used">Used</option>
-        </select>
+              {isOpen && (
+                <div className={style.dropdownMenu}>
+                  {options.map((option) => (
+                    <label key={option} className={style.checkboxOption}>
+                      <input
+                        type="checkbox"
+                        checked={selectedValues.includes(option)}
+                        onChange={() => handleToggleOption(key, option)}
+                      />
+                      <span>{option}</span>
+                    </label>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
 
         <button
           type="button"
           className={`${style.saleBtn} ${filters.isSale ? style.saleActive : ''}`}
-          onClick={() => handleSelectChange('isSale', !filters.isSale)}
+          onClick={() => onChangeFilters({ ...filters, isSale: !filters.isSale })}
         >
           <p className={style.saleBtnText}>Sale</p>
           {filters.isSale && <DismissIcon className={style.dismissIcon} />}
@@ -76,11 +106,13 @@ export default function FilterBar({
       </div>
 
       <div className={style.chipsRow}>
-        {Object.entries(filters).map(([key, val]) => {
-          if (!val || key === 'isSale') return null;
+        {filterConfigs.map(({ key }) => {
+          const val = filters[key];
+          if (!val || !Array.isArray(val) || val.length === 0) return null;
+
           return (
             <span key={key} className={style.chip}>
-              {String(val)}{' '}
+              {val.join(', ')}{' '}
               <button
                 type="button"
                 onClick={() => handleRemoveFilter(key)}

@@ -1,3 +1,6 @@
+import { useSelector } from 'react-redux';
+import { selectFavoritesCount } from '../../store/slices/favoritesSlice';
+import { selectCartCount } from '../../store/slices/cartSlice';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/logo.svg';
 import styles from './Header.module.css';
@@ -7,6 +10,9 @@ import BasketIcon from '../../assets/basket.svg';
 import UserIcon from '../../assets/user.svg';
 
 export default function Header() {
+  const favoritesCount = useSelector(selectFavoritesCount);
+  const cartCount = useSelector(selectCartCount);
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -22,9 +28,9 @@ export default function Header() {
 
           <div className={styles.searchContainer}>
             <SearchIcon className={styles.searchIcon} />
-            <input 
-              type="text" 
-              placeholder="" 
+            <input
+              type="text"
+              placeholder=""
               className={styles.searchInput}
             />
           </div>
@@ -39,13 +45,13 @@ export default function Header() {
 
           <div className={styles.actions}>
             <Link to="/favorites" className={styles.actionItem}>
-              <HeartIcon className={styles.heartIcon} />
-              <span>0</span>
+              <HeartIcon className={favoritesCount > 0 ? styles.heartIcon : styles.heartIconInactive} />
+              <span>{favoritesCount}</span>
             </Link>
 
             <Link to="/cart" className={styles.actionItem}>
               <BasketIcon className={styles.basketIcon} />
-              <span>3</span>
+              <span>{cartCount}</span>
             </Link>
 
             <Link to="/login" className={styles.actionItem}>

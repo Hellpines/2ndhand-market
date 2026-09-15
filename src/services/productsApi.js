@@ -6,16 +6,16 @@ export const productsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://dummyjson.com/' }),
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: () => 'c/a6d0-64b2-4f6e-b68d',
+      query: () => 'c/e43c-00fa-4b0f-bf65',
     }),
 
     getCategoriesTree: builder.query({
-      query: () => 'c/a6d0-64b2-4f6e-b68d',
+      query: () => 'c/e43c-00fa-4b0f-bf65',
       transformResponse: () => CATEGORY_TREE,
     }),
 
     getProductById: builder.query({
-      query: () => 'c/a6d0-64b2-4f6e-b68d',
+      query: () => 'c/e43c-00fa-4b0f-bf65',
       transformResponse: (response, meta, id) => {
         return response.products?.find((item) => String(item.id) === String(id));
       },

@@ -3,6 +3,7 @@ import { useGetProductsQuery } from '../../services/productsApi';
 import ProductCard from '../ProductCard/ProductCard';
 import FilterBar from '../FilterBar/FilterBar';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
+import { filterProducts } from '../../helpers/filterProducts';
 import style from './ProductGrid.module.css';
 
 export default function ProductGrid({
@@ -19,8 +20,6 @@ export default function ProductGrid({
 
   const rawProducts = data?.products || [];
 
-  const isSaleFilterActive = filters.isSale;
-
   const availableOptions = useMemo(() => {
     let categoryProducts = rawProducts;
 
@@ -35,7 +34,7 @@ export default function ProductGrid({
       categoryProducts = categoryProducts.filter((p) => p.category === activeCategory);
     }
 
-    if (isSaleFilterActive) {
+    if (filters.isSale) {
       categoryProducts = categoryProducts.filter((p) => Number(p.discountPercentage) > 0);
     }
 
@@ -57,7 +56,7 @@ export default function ProductGrid({
       sizes: Array.from(sizes),
       shops: Array.from(shops),
     };
-  }, [rawProducts, activeDepartment, activeCategory, isSaleFilterActive]);
+  }, [rawProducts, activeDepartment, activeCategory, filters.isSale]);
 
   const filteredProducts = useMemo(() => {
     let result = [...rawProducts];
@@ -73,33 +72,7 @@ export default function ProductGrid({
       result = result.filter((p) => p.category === activeCategory);
     }
 
-    if (filters.color) {
-      result = result.filter((p) => p.color === filters.color);
-    }
-
-    if (filters.size) {
-      result = result.filter((p) => String(p.size) === String(filters.size));
-    }
-
-    if (filters.brand) {
-      result = result.filter((p) => p.brand === filters.brand);
-    }
-
-    if (filters.shop) {
-      result = result.filter((p) => p.shop === filters.shop);
-    }
-
-    if (filters.condition) {
-      result = result.filter(
-        (p) =>
-          p.condition &&
-          p.condition.toLowerCase() === filters.condition.toLowerCase()
-      );
-    }
-
-    if (isSaleFilterActive) {
-      result = result.filter((p) => Number(p.discountPercentage) > 0);
-    }
+    result = filterProducts(result, filters);
 
     if (filters.priceRange) {
       if (filters.priceRange === '0-30') {
@@ -118,7 +91,7 @@ export default function ProductGrid({
     }
 
     return result;
-  }, [rawProducts, activeDepartment, activeCategory, filters, sortBy, isSaleFilterActive]);
+  }, [rawProducts, activeDepartment, activeCategory, filters, sortBy]);
 
   if (isLoading) return <div className={style.status}>Loading products...</div>;
   if (isError) return <div className={style.status}>Error occurred while loading products</div>;

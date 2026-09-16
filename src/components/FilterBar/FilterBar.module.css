@@ -201,3 +201,11 @@
   color: #f4717a;
   font-weight: 600;
 }
+
+.arrow {
+  transition: transform 0.2s ease;
+}
+
+.arrowUp {
+  transform: rotate(180deg);
+}

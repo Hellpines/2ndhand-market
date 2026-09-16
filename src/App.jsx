@@ -37,7 +37,7 @@ export default function App() {
   };
 
   return (
-    <>
+    <div className={style.app}>
       <Header />
       <Departments
         activeDepartment={activeDepartment}
@@ -60,6 +60,6 @@ export default function App() {
         </section>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

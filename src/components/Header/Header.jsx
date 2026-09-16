@@ -1,7 +1,10 @@
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { selectFavoritesCount } from '../../store/slices/favoritesSlice';
 import { selectCartCount } from '../../store/slices/cartSlice';
-import { Link } from 'react-router-dom';
+import { selectSearchQuery, setSearchQuery } from '../../store/slices/filterSlice';
+
 import Logo from '../../assets/logo.svg';
 import styles from './Header.module.css';
 import SearchIcon from '../../assets/search.svg';
@@ -10,14 +13,29 @@ import BasketIcon from '../../assets/basket.svg';
 import UserIcon from '../../assets/user.svg';
 
 export default function Header() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const favoritesCount = useSelector(selectFavoritesCount);
   const cartCount = useSelector(selectCartCount);
+  const searchQuery = useSelector(selectSearchQuery);
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+
+    dispatch(setSearchQuery(value));
+
+    if (location.pathname !== '/' && value.trim() !== '') {
+      navigate('/');
+    }
+  };
 
   return (
     <header className={styles.header}>
       <div className={styles.container}>
         <div className={styles.leftContainer}>
-          <Link to="/products" className={styles.logoLink}>
+          <Link to="/" className={styles.logoLink}>
             <Logo className={styles.logoImg} />
             <div className={styles.logoText}>
               <span>2ND</span>
@@ -30,7 +48,8 @@ export default function Header() {
             <SearchIcon className={styles.searchIcon} />
             <input
               type="text"
-              placeholder=""
+              value={searchQuery}
+              onChange={handleSearchChange}
               className={styles.searchInput}
             />
           </div>
@@ -44,12 +63,12 @@ export default function Header() {
           </nav>
 
           <div className={styles.actions}>
-            <Link to="/favorites" className={styles.actionItem}>
+            <Link to="/wish-list" className={styles.actionItem}>
               <HeartIcon className={favoritesCount > 0 ? styles.heartIcon : styles.heartIconInactive} />
               <span>{favoritesCount}</span>
             </Link>
 
-            <Link to="/cart" className={styles.actionItem}>
+            <Link to="/my-items" className={styles.actionItem}>
               <BasketIcon className={styles.basketIcon} />
               <span>{cartCount}</span>
             </Link>

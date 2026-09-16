@@ -1,9 +1,11 @@
 import { useState, useMemo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useGetProductsQuery } from '../../services/productsApi';
 import ProductCard from '../ProductCard/ProductCard';
 import FilterBar from '../FilterBar/FilterBar';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import { filterProducts } from '../../helpers/filterProducts';
+import { selectFilters, resetAllFilters } from '../../store/slices/filterSlice';
 import style from './ProductGrid.module.css';
 
 export default function ProductGrid({
@@ -13,9 +15,10 @@ export default function ProductGrid({
   onSelectCategory,
   onResetAll,
 }) {
+  const dispatch = useDispatch();
   const { data, isLoading, isError } = useGetProductsQuery();
 
-  const [filters, setFilters] = useState({});
+  const filters = useSelector(selectFilters);
   const [sortBy, setSortBy] = useState(null);
 
   const rawProducts = data?.products || [];
@@ -74,16 +77,6 @@ export default function ProductGrid({
 
     result = filterProducts(result, filters);
 
-    if (filters.priceRange) {
-      if (filters.priceRange === '0-30') {
-        result = result.filter((p) => p.price <= 30);
-      } else if (filters.priceRange === '30-50') {
-        result = result.filter((p) => p.price > 30 && p.price <= 50);
-      } else if (filters.priceRange === '50+') {
-        result = result.filter((p) => p.price > 50);
-      }
-    }
-
     if (sortBy === 'asc') {
       result.sort((a, b) => a.price - b.price);
     } else if (sortBy === 'desc') {
@@ -103,7 +96,7 @@ export default function ProductGrid({
         activeCategory={activeCategory}
         onResetAll={() => {
           onResetAll();
-          setFilters({});
+          dispatch(resetAllFilters());
         }}
         onSelectDepartment={(dept) => {
           onSelectDepartment(dept);
@@ -113,10 +106,11 @@ export default function ProductGrid({
 
       <FilterBar
         filters={filters}
-        onChangeFilters={setFilters}
         sortBy={sortBy}
         onChangeSort={setSortBy}
         availableOptions={availableOptions}
+        activeCategory={activeCategory}
+        onSelectCategory={onSelectCategory}
       />
 
       {filteredProducts.length === 0 ? (

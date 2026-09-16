@@ -1,10 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
+import filterReducer from './slices/filterSlice';
+import purchasedReducer from './slices/purchasedSlice';
+import reservedReducer from './slices/reservedSlice';
 import favoritesReducer from './slices/favoritesSlice';
 import cartReducer from './slices/cartSlice';
 import { productsApi } from '../services/productsApi';
 
 export const store = configureStore({
   reducer: {
+    purchased: purchasedReducer,
+    reserved: reservedReducer,
+    filters: filterReducer,
     favorites: favoritesReducer,
     cart: cartReducer,
     [productsApi.reducerPath]: productsApi.reducer,

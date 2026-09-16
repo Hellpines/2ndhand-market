@@ -1,22 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+  search: '',
   colors: [],
   sizes: [],
   brands: [],
   conditions: [],
   shops: [],
-  price: { min: null, max: null },
+  isSale: false,
 };
 
 const filterSlice = createSlice({
   name: 'filters',
   initialState,
   reducers: {
+    setSearchQuery: (state, action) => {
+      state.search = action.payload;
+    },
     toggleFilterValue: (state, action) => {
       const { category, value } = action.payload;
       const index = state[category].indexOf(value);
-
       if (index === -1) {
         state[category].push(value);
       } else {
@@ -31,6 +34,9 @@ const filterSlice = createSlice({
   },
 });
 
-export const { toggleFilterValue, clearFilterCategory, resetAllFilters } = filterSlice.actions;
-export const selectFilters = (state) => state.filters;
+export const { setSearchQuery, toggleFilterValue, clearFilterCategory, resetAllFilters } =
+  filterSlice.actions;
+export const selectFilters = (state) => state.filters || initialState;
+export const selectSearchQuery = (state) => state.filters?.search || '';
+
 export default filterSlice.reducer;

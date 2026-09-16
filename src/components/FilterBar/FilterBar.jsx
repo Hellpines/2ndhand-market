@@ -15,6 +15,8 @@ export default function FilterBar({
     shops: [],
     conditions: ['New', 'Used'],
   },
+  activeCategory,
+  onSelectCategory,
 }) {
   const [openDropdown, setOpenDropdown] = useState(null);
   const dropdownRef = useRef(null);
@@ -73,8 +75,7 @@ export default function FilterBar({
                 className={`${style.select} ${selectedValues.length > 0 ? style.activeSelect : ''}`}
                 onClick={() => toggleDropdown(key)}
               >
-                <span>{label}</span>
-                <ArrowIcon/>
+                <span>{label}</span> <ArrowIcon className={`${style.arrow} ${isOpen ? style.arrowUp : ''}`} />
               </button>
 
               {isOpen && (
@@ -106,6 +107,19 @@ export default function FilterBar({
       </div>
 
       <div className={style.chipsRow}>
+        {activeCategory && activeCategory !== 'all' && (
+          <span className={style.chip}>
+            {activeCategory}{' '}
+            <button
+              type="button"
+              onClick={() => onSelectCategory && onSelectCategory(null)}
+              className={style.chipRemove}
+            >
+              <DismissIcon className={style.dismissIcon} />
+            </button>
+          </span>
+        )}
+
         {filterConfigs.map(({ key }) => {
           const val = filters[key];
           if (!val || !Array.isArray(val) || val.length === 0) return null;

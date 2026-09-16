@@ -32,21 +32,11 @@ export default function FilterBar({
   }, []);
 
   const handleToggleOption = (field, value) => {
-    const currentList = filters[field] || [];
-    const nextList = currentList.includes(value)
-      ? currentList.filter((item) => item !== value)
-      : [...currentList, value];
-
-    onChangeFilters({
-      ...filters,
-      [field]: nextList,
-    });
+    onChangeFilters({ category: field, value });
   };
 
   const handleRemoveFilter = (field) => {
-    const updated = { ...filters };
-    delete updated[field];
-    onChangeFilters(updated);
+    onChangeFilters({ category: field, clear: true });
   };
 
   const toggleDropdown = (name) => {
@@ -99,7 +89,7 @@ export default function FilterBar({
         <button
           type="button"
           className={`${style.saleBtn} ${filters.isSale ? style.saleActive : ''}`}
-          onClick={() => onChangeFilters({ ...filters, isSale: !filters.isSale })}
+          onClick={() => onChangeFilters('isSale')}
         >
           <p className={style.saleBtnText}>Sale</p>
           {filters.isSale && <DismissIcon className={style.dismissIcon} />}

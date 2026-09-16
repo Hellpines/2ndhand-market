@@ -98,6 +98,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 12px;
 }
 
 .priceBlock {
@@ -118,6 +119,33 @@
     text-decoration: line-through;
 }
 
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.reserveBtn {
+    border: none;
+    background: #f4717a;
+    color: #ffffff;
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.reserveBtn:hover {
+    background: #ef5b67;
+}
+
+.reserveBtn:active {
+    transform: scale(0.98);
+}
+
 .cartBtn {
     background: transparent;
     border: none;
@@ -128,10 +156,10 @@
     justify-content: center;
 }
 
-.addedLabel {
-    font-size: 12px;
-    color: #e56363;
-    font-weight: 500;
+.addedLabel, .reservedLabel {
+    font-size: 14px;
+    color: #FF2D55;
+    font-weight: 400;
 }
 
 .basketIcon {

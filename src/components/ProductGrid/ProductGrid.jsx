@@ -5,7 +5,7 @@ import ProductCard from '../ProductCard/ProductCard';
 import FilterBar from '../FilterBar/FilterBar';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import { filterProducts } from '../../helpers/filterProducts';
-import { selectFilters, resetAllFilters } from '../../store/slices/filterSlice';
+import { selectFilters, resetAllFilters, toggleFilterValue } from '../../store/slices/filterSlice';
 import style from './ProductGrid.module.css';
 
 export default function ProductGrid({
@@ -108,6 +108,13 @@ export default function ProductGrid({
         filters={filters}
         sortBy={sortBy}
         onChangeSort={setSortBy}
+        onChangeFilters={(param1, param2) => {
+          if (typeof param1 === 'object' && param1 !== null) {
+            dispatch(toggleFilterValue(param1));
+          } else {
+            dispatch(toggleFilterValue({ category: param1, value: param2 }));
+          }
+        }}
         availableOptions={availableOptions}
         activeCategory={activeCategory}
         onSelectCategory={onSelectCategory}

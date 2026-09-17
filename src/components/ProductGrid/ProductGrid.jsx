@@ -6,6 +6,7 @@ import FilterBar from '../FilterBar/FilterBar';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import { filterProducts } from '../../helpers/filterProducts';
 import { selectFilters, resetAllFilters, toggleFilterValue } from '../../store/slices/filterSlice';
+import { selectPurchasedOrders } from '../../store/slices/purchasedSlice'; // 1. Импортируем селектор
 import style from './ProductGrid.module.css';
 
 export default function ProductGrid({
@@ -19,9 +20,18 @@ export default function ProductGrid({
   const { data, isLoading, isError } = useGetProductsQuery();
 
   const filters = useSelector(selectFilters);
+  const purchasedOrders = useSelector(selectPurchasedOrders);
   const [sortBy, setSortBy] = useState(null);
 
-  const rawProducts = data?.products || [];
+  const rawProducts = useMemo(() => {
+    const products = data?.products || [];
+    
+    const purchasedIds = new Set(
+      purchasedOrders.flatMap((order) => order.items.map((item) => item.id))
+    );
+
+    return products.filter((p) => !purchasedIds.has(p.id));
+  }, [data, purchasedOrders]);
 
   const availableOptions = useMemo(() => {
     let categoryProducts = rawProducts;

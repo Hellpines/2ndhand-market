@@ -27,11 +27,6 @@
     text-decoration: none;
 }
 
-.logoImg {
-    height: 36px;
-    width: auto;
-}
-
 .logoText {
     display: flex;
     flex-direction: column;
@@ -74,7 +69,7 @@
 .basketIcon,
 .userIcon {
     display: block;
-    width: 16px;
+    width: 17px;
     height: 16px;
     color: #ffffff;
     transition: color 0.2s ease;

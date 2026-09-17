@@ -1,22 +1,37 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectCartItems } from '../../store/slices/cartSlice';
-import { selectReservedShops } from '../../store/slices/reservedSlice';
-import { selectPurchasedOrders } from '../../store/slices/purchasedSlice';
-import style from './WishListPage.module.css';
+import { useSelector } from 'react-redux';
+import { selectFavorites } from '../../store/slices/favoritesSlice';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
+import ProductCard from '../../components/ProductCard/ProductCard';
+import style from './WishListPage.module.css';
 
 export default function WishListPage() {
-  const [activeTab, setActiveTab] = useState('cart');
+  const favorites = useSelector(selectFavorites);
 
   return (
     <div className={style.page}>
       <Header />
       <main className={style.container}>
-        <h1 className={style.pageTitle}>Wish List</h1>
+        <div className={style.tabContainer}>
+          <button
+            type="button"
+            className={`${style.tab} ${style.activeTab}`}
+          >
+            Wish List ({favorites.length})
+          </button>
+        </div>
+
         <div className={style.tabContent}>
-        
+          {favorites.length === 0 ? (
+            <p className={style.emptySection}>Your wishlist is empty</p>
+          ) : (
+            <div className={style.grid}>
+              {favorites.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          )}
         </div>
       </main>
       <Footer />

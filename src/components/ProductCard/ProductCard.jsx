@@ -1,12 +1,14 @@
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleFavorite, selectFavorites } from '../../store/slices/favoritesSlice';
-import { addToCart, selectCartItems } from '../../store/slices/cartSlice';
+import { addToCart, removeFromCart, selectCartItems } from '../../store/slices/cartSlice';
 import { addToReserved, selectReservedShops } from '../../store/slices/reservedSlice';
+import { addPurchasedOrder } from '../../store/slices/purchasedSlice';
 import style from './ProductCard.module.css';
 import BasketIcon from '../../assets/basket.svg';
 import HeartIcon from '../../assets/heart.svg';
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, variant = 'catalog', onCheckoutSingle }) {
   const dispatch = useDispatch();
 
   const favorites = useSelector(selectFavorites);
@@ -22,6 +24,24 @@ export default function ProductCard({ product }) {
 
   const handleReserve = () => {
     dispatch(addToReserved(product));
+  };
+
+  const handleRemoveFromCart = () => {
+    dispatch(removeFromCart(product.id));
+  };
+
+  const handleSingleCheckout = () => {
+    if (onCheckoutSingle) {
+      onCheckoutSingle(product);
+    } else {
+      dispatch(
+        addPurchasedOrder({
+          shopName: product.shop || '2ND HAND MARKET',
+          items: [product],
+        })
+      );
+      dispatch(removeFromCart(product.id));
+    }
   };
 
   const price = Number(product.price) || 0;
@@ -88,7 +108,24 @@ export default function ProductCard({ product }) {
             )}
           </div>
 
-          {isAdded ? (
+          {variant === 'cart' ? (
+            <div className={style.cartActions}>
+              <button
+                type="button"
+                className={style.removeBtn}
+                onClick={handleRemoveFromCart}
+              >
+                Remove
+              </button>
+              <button
+                type="button"
+                className={style.checkoutCardBtn}
+                onClick={handleSingleCheckout}
+              >
+                Buy
+              </button>
+            </div>
+          ) : isAdded ? (
             <span className={style.addedLabel}>Added</span>
           ) : (product.isReserved || isReservedInStore) ? (
             <span className={style.reservedLabel}>Reserved</span>

@@ -5,6 +5,7 @@ import { selectReservedShops, removeFromReserved } from '../../store/slices/rese
 import { selectPurchasedOrders, addPurchasedOrder } from '../../store/slices/purchasedSlice';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
+import ProductCard from '../../components/ProductCard/ProductCard';
 import style from './MyItemsPage.module.css';
 
 export default function MyItemsPage() {
@@ -17,7 +18,7 @@ export default function MyItemsPage() {
 
   const totalCartPrice = cartItems.reduce((sum, item) => sum + (Number(item.price) || 0), 0);
 
-  const handleCheckout = () => {
+  const handleCheckoutAll = () => {
     if (cartItems.length === 0) return;
 
     dispatch(
@@ -27,6 +28,17 @@ export default function MyItemsPage() {
       })
     );
     dispatch(clearCart());
+    setActiveTab('purchased');
+  };
+
+  const handleCheckoutSingle = (product) => {
+    dispatch(
+      addPurchasedOrder({
+        shopName: product.shop || '2ND HAND MARKET',
+        items: [product],
+      })
+    );
+    dispatch(removeFromCart(product.id));
     setActiveTab('purchased');
   };
 
@@ -65,23 +77,14 @@ export default function MyItemsPage() {
                 <p className={style.emptySection}>Your cart is empty</p>
               ) : (
                 <div className={style.cartWrapper}>
-                  <div className={style.cartList}>
+                  <div className={style.cartGrid}>
                     {cartItems.map((item) => (
-                      <div key={item.id} className={style.cartItemRow}>
-                        <img src={item.thumbnail || item.image} alt={item.title} />
-                        <div className={style.itemDetails}>
-                          <h4>{item.title}</h4>
-                          <p>Size: {item.size || 'N/A'}</p>
-                          <p className={style.price}>{item.price} €</p>
-                        </div>
-                        <button
-                          type="button"
-                          className={style.removeBtn}
-                          onClick={() => dispatch(removeFromCart(item.id))}
-                        >
-                          Remove
-                        </button>
-                      </div>
+                      <ProductCard
+                        key={item.id}
+                        product={item}
+                        variant="cart"
+                        onCheckoutSingle={handleCheckoutSingle}
+                      />
                     ))}
                   </div>
 
@@ -91,8 +94,8 @@ export default function MyItemsPage() {
                       <span>Total:</span>
                       <strong>{totalCartPrice.toFixed(2)} €</strong>
                     </div>
-                    <button type="button" className={style.checkoutBtn} onClick={handleCheckout}>
-                      Proceed to Checkout
+                    <button type="button" className={style.checkoutBtn} onClick={handleCheckoutAll}>
+                      Checkout All
                     </button>
                   </div>
                 </div>
@@ -127,8 +130,9 @@ export default function MyItemsPage() {
                           <img src={item.thumbnail || item.image} alt={item.title} />
                           <div className={style.itemInfo}>
                             <h4>{item.title}</h4>
-                            <p>Price: {item.price} €</p>
-                            <p>Size: {item.size || 'N/A'}</p>
+                            <p>Price: <span>{item.price} €</span></p>
+                            <p>Size: <span>{item.size || 'N/A'}</span></p>
+                            <p>Color: <span>{item.color || 'N/A'}</span></p>
                             <button
                               type="button"
                               className={style.cancelReserveBtn}
@@ -174,7 +178,9 @@ export default function MyItemsPage() {
                           <img src={item.thumbnail || item.image} alt={item.title} />
                           <div className={style.itemInfo}>
                             <h4>{item.title}</h4>
-                            <p className={style.itemPrice}>Price: {item.price} €</p>
+                            <p>Price: <span>{item.price} €</span></p>
+                            <p>Size: <span>{item.size || 'N/A'}</span></p>
+                            <p>Color: <span>{item.color || 'N/A'}</span></p>
                           </div>
                         </div>
                       ))}

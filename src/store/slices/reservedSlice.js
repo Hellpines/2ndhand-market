@@ -1,12 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { loginSuccess, logout } from './authSlice';
 
-const initialState = {
-  reservedShops: [],
+const getUserId = () => {
+  const user = JSON.parse(localStorage.getItem('currentUser'));
+  return user?.id || null;
+};
+
+const loadReserved = () => {
+  const userId = getUserId();
+  if (!userId) return [];
+  const data = localStorage.getItem(`reserved_${userId}`);
+  return data ? JSON.parse(data) : [];
+};
+
+const saveReserved = (shops) => {
+  const userId = getUserId();
+  if (userId) {
+    localStorage.setItem(`reserved_${userId}`, JSON.stringify(shops));
+  }
 };
 
 const reservedSlice = createSlice({
   name: 'reserved',
-  initialState,
+  initialState: {
+    reservedShops: loadReserved(),
+  },
   reducers: {
     addToReserved: (state, action) => {
       const product = action.payload;
@@ -17,7 +35,7 @@ const reservedSlice = createSlice({
       if (!shopGroup) {
         const now = new Date();
         const until = new Date(now.getTime() + 48 * 60 * 60 * 1000);
-        
+
         shopGroup = {
           shopId: product.shopId || shopName.toLowerCase().replace(/\s+/g, '-'),
           shopName: shopName,
@@ -33,6 +51,7 @@ const reservedSlice = createSlice({
       if (!exists) {
         shopGroup.items.push(product);
       }
+      saveReserved(state.reservedShops);
     },
     removeFromReserved: (state, action) => {
       const { shopId, productId } = action.payload;
@@ -43,10 +62,23 @@ const reservedSlice = createSlice({
           state.reservedShops = state.reservedShops.filter((g) => g.shopId !== shopId);
         }
       }
+      saveReserved(state.reservedShops);
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginSuccess, (state, action) => {
+        const userId = action.payload.id;
+        const data = localStorage.getItem(`reserved_${userId}`);
+        state.reservedShops = data ? JSON.parse(data) : [];
+      })
+      .addCase(logout, (state) => {
+        state.reservedShops = [];
+      });
   },
 });
 
 export const { addToReserved, removeFromReserved } = reservedSlice.actions;
 export const selectReservedShops = (state) => state.reserved?.reservedShops || [];
+
 export default reservedSlice.reducer;

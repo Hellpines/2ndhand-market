@@ -10,6 +10,7 @@ import ProfilePage from './pages/ProfilePage/ProfilePage';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import ShopsPage from './pages/ShopsPage/ShopsPage';
+import MerchantPage from './pages/MerchantPage/MerchantPage';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -26,6 +27,7 @@ root.render(
                 <Route element={<SignUpPage />} path='/signup'/>
                 <Route element={<ProfilePage />} path='/profile'/>
                 <Route element={<ShopsPage />} path='/shops'/>
+                <Route element={<MerchantPage />} path='/merchant'/>
             </Routes>
         </BrowserRouter>
     </Provider>

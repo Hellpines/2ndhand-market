@@ -1,5 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { selectIsAuthenticated } from '../../store/slices/authSlice';
 import { toggleFavorite, selectFavorites } from '../../store/slices/favoritesSlice';
 import { addToCart, removeFromCart, selectCartItems } from '../../store/slices/cartSlice';
 import { addToReserved, selectReservedShops } from '../../store/slices/reservedSlice';
@@ -10,10 +12,20 @@ import HeartIcon from '../../assets/heart.svg';
 
 export default function ProductCard({ product, variant = 'catalog', onCheckoutSingle }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const isAuthenticated = useSelector(selectIsAuthenticated);
   const favorites = useSelector(selectFavorites);
   const cartItems = useSelector(selectCartItems);
   const reservedShops = useSelector(selectReservedShops);
+
+  const withAuth = (action) => {
+    if (!isAuthenticated) {
+      navigate('/login');
+      return;
+    }
+    action();
+  };
 
   const isFavorite = favorites.some((item) => item.id === product.id);
   const isAdded = cartItems.some((item) => item.id === product.id);
@@ -22,8 +34,16 @@ export default function ProductCard({ product, variant = 'catalog', onCheckoutSi
     shop.items.some((item) => item.id === product.id)
   );
 
+  const handleToggleFavorite = () => {
+    withAuth(() => dispatch(toggleFavorite(product)));
+  };
+
   const handleReserve = () => {
-    dispatch(addToReserved(product));
+    withAuth(() => dispatch(addToReserved(product)));
+  };
+
+  const handleAddToCart = () => {
+    withAuth(() => dispatch(addToCart(product)));
   };
 
   const handleRemoveFromCart = () => {
@@ -31,17 +51,19 @@ export default function ProductCard({ product, variant = 'catalog', onCheckoutSi
   };
 
   const handleSingleCheckout = () => {
-    if (onCheckoutSingle) {
-      onCheckoutSingle(product);
-    } else {
-      dispatch(
-        addPurchasedOrder({
-          shopName: product.shop || '2ND HAND MARKET',
-          items: [product],
-        })
-      );
-      dispatch(removeFromCart(product.id));
-    }
+    withAuth(() => {
+      if (onCheckoutSingle) {
+        onCheckoutSingle(product);
+      } else {
+        dispatch(
+          addPurchasedOrder({
+            shopName: product.shop || '2ND HAND MARKET',
+            items: [product],
+          })
+        );
+        dispatch(removeFromCart(product.id));
+      }
+    });
   };
 
   const price = Number(product.price) || 0;
@@ -74,7 +96,7 @@ export default function ProductCard({ product, variant = 'catalog', onCheckoutSi
         <button
           type="button"
           className={style.favoriteBtn}
-          onClick={() => dispatch(toggleFavorite(product))}
+          onClick={handleToggleFavorite}
           aria-label={isFavorite ? 'Remove from wishlist' : 'Add to wishlist'}
         >
           <HeartIcon
@@ -127,7 +149,7 @@ export default function ProductCard({ product, variant = 'catalog', onCheckoutSi
             </div>
           ) : isAdded ? (
             <span className={style.addedLabel}>Added</span>
-          ) : (product.isReserved || isReservedInStore) ? (
+          ) : product.isReserved || isReservedInStore ? (
             <span className={style.reservedLabel}>Reserved</span>
           ) : (
             <div className={style.actions}>
@@ -141,7 +163,7 @@ export default function ProductCard({ product, variant = 'catalog', onCheckoutSi
               <button
                 type="button"
                 className={style.cartBtn}
-                onClick={() => dispatch(addToCart(product))}
+                onClick={handleAddToCart}
                 aria-label="Add to cart"
               >
                 <BasketIcon className={style.basketIcon} />

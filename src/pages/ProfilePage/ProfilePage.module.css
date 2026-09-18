@@ -1,0 +1,76 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  flex: 1;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e5e5ea;
+  border-radius: 16px;
+  padding: 32px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+.title {
+  margin-bottom: 24px;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #1c1c1e;
+}
+
+.infoGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #f2f2f7;
+  padding-bottom: 10px;
+}
+
+.label {
+  color: #8e8e93;
+  font-size: 14px;
+}
+
+.value {
+  color: #1c1c1e;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.logoutBtn {
+  width: 100%;
+  padding: 12px;
+  background-color: #ff3b30;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.logoutBtn:hover {
+  opacity: 0.9;
+}

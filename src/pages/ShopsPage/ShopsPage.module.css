@@ -1,0 +1,151 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f9f9fb;
+}
+
+.container {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 16px;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1c1c1e;
+  margin-bottom: 24px;
+}
+
+.searchWrapper {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 18px;
+  border: 1px solid #e5e5ea;
+  border-radius: 24px;
+  font-size: 14px;
+  outline: none;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.2s ease;
+}
+
+.searchInput:focus {
+  border-color: #f4717a;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.shopCard {
+  background: #ffffff;
+  border: 1px solid #e5e5ea;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.shopCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  background-color: #f2f2f7;
+}
+
+.shopImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.itemsBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: rgba(28, 28, 30, 0.75);
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+.cardBody {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.shopTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1c1c1e;
+  margin: 0 0 16px 0;
+}
+
+.infoRow {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.infoLabel {
+  color: #8e8e93;
+  font-weight: 500;
+}
+
+.infoValue {
+  color: #3a3a3c;
+  font-weight: 600;
+}
+
+.viewProductsBtn {
+  margin-top: auto;
+  padding: 12px;
+  background-color: #f4717a;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.viewProductsBtn:hover {
+  background-color: #e05d66;
+}
+
+.status {
+  text-align: center;
+  margin-top: 60px;
+  color: #8e8e93;
+  font-size: 16px;
+}

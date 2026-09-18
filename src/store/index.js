@@ -4,6 +4,7 @@ import purchasedReducer from './slices/purchasedSlice';
 import reservedReducer from './slices/reservedSlice';
 import favoritesReducer from './slices/favoritesSlice';
 import cartReducer from './slices/cartSlice';
+import authReducer from './slices/authSlice';
 import { productsApi } from '../services/productsApi';
 
 export const store = configureStore({
@@ -13,6 +14,7 @@ export const store = configureStore({
     filters: filterReducer,
     favorites: favoritesReducer,
     cart: cartReducer,
+    auth: authReducer,
     [productsApi.reducerPath]: productsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

@@ -11,8 +11,9 @@ import SearchIcon from '../../assets/search.svg';
 import HeartIcon from '../../assets/heart.svg';
 import BasketIcon from '../../assets/basket.svg';
 import UserIcon from '../../assets/user.svg';
+import { selectIsAuthenticated } from '../../store/slices/authSlice';
 
-export default function Header() {
+export default function Header({ isAuth = false }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -20,6 +21,7 @@ export default function Header() {
   const favoritesCount = useSelector(selectFavoritesCount);
   const cartCount = useSelector(selectCartCount);
   const searchQuery = useSelector(selectSearchQuery);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
@@ -30,6 +32,21 @@ export default function Header() {
       navigate('/');
     }
   };
+
+  if (isAuth) {
+    return (
+      <header className={styles.authHeader}>
+        <Link to="#" className={styles.logoLink}>
+          <Logo className={styles.logoImg} />
+          <div className={styles.logoText}>
+            <span>2ND</span>
+            <span>HAND</span>
+            <span>MARKET</span>
+          </div>
+        </Link>
+      </header>
+    );
+  }
 
   return (
     <header className={styles.header}>
@@ -57,23 +74,23 @@ export default function Header() {
 
         <div className={styles.navActions}>
           <nav className={styles.navLinks}>
-            <Link to="/about" className={styles.navLink}>About us</Link>
+            <Link to="/about-us" className={styles.navLink}>About us</Link>
             <Link to="/shops" className={styles.navLink}>All shops</Link>
             <Link to="/merchant" className={styles.navLink}>Become a merchant</Link>
           </nav>
 
           <div className={styles.actions}>
-            <Link to="/wish-list" className={styles.actionItem}>
+            <Link to={`/${isAuthenticated ? './wish-list' : './login'}`} className={styles.actionItem}>
               <HeartIcon className={favoritesCount > 0 ? styles.heartIcon : styles.heartIconInactive} />
               <span>{favoritesCount}</span>
             </Link>
 
-            <Link to="/my-items" className={styles.actionItem}>
+            <Link to={`/${isAuthenticated ? './my-items' : './login'}`} className={styles.actionItem}>
               <BasketIcon className={styles.basketIcon} />
               <span>{cartCount}</span>
             </Link>
 
-            <Link to="/login" className={styles.actionItem}>
+            <Link to={`/${isAuthenticated ? './profile' : './login'}`} className={styles.actionItem}>
               <UserIcon className={styles.userIcon} />
             </Link>
           </div>

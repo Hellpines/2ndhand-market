@@ -6,8 +6,9 @@
 
 .title {
   font-size: 13px;
-  color: #94a3b8;
-  font-weight: 400;
+  color: #333333;
+  opacity: 0.5;
+  font-weight: 500;
   margin-bottom: 8px;
 }
 
@@ -18,7 +19,7 @@
 }
 
 .groupItem {
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.1);
 }
 
 .groupHeader {
@@ -36,11 +37,11 @@
 .groupTitle {
   font-size: 15px;
   font-weight: 600;
-  color: #1e293b;
+  color: #333333;
 }
 
 .arrow {
-  transition: transform 0.2s ease;
+  transition: 0.2s;
 }
 
 .arrow.open {
@@ -68,7 +69,8 @@
 .subTitle {
   font-size: 14px;
   font-weight: 500;
-  color: #64748b;
+  color: #333333;
+  opacity: 0.7;
 }
 
 .itemList {
@@ -80,18 +82,19 @@
 .itemBtn {
   background: transparent;
   border: none;
-  font-size: 13px;
+  font-size: 14px;
   color: #333333;
+  opacity: 0.7;
   padding: 4px 0;
   cursor: pointer;
   display: block;
   width: 100%;
   text-align: left;
-  transition: color 0.15s ease, font-weight 0.15s ease;
+  transition: 0.15s;
 }
 
 .itemBtn:hover,
 .itemBtn.active {
-  color: #0f172a;
   font-weight: 600;
+  opacity: 1;
 }

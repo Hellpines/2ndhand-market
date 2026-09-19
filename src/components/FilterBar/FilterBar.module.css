@@ -24,50 +24,47 @@
   border-radius: 20px;
   padding: 10px 16px;
   font-size: 14px;
-  color: #64748b;
-  outline: none;
+  color: #333333;
   cursor: pointer;
   transition: 0.2s;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  text-align: left;
 }
 
 .select:hover {
-  border-color: #cbd5e1;
+  border-color: #333333;
 }
 
 .activeSelect {
-  border-color: #f4717a;
-  color: #0f172a;
-  font-weight: 500;
+  border-color: #FF2D55;
+  color: #333333;
 }
 
 .dropdownMenu {
   position: absolute;
-  top: calc(100% + 6px);
+  top: calc(100% + 5px);
   left: 0;
-  z-index: 50;
+  z-index: 1;
   width: 100%;
   max-height: 220px;
   overflow-y: auto;
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  padding: 6px 0;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 6px;
   display: flex;
   flex-direction: column;
 }
 
 .dropdownMenu::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 .dropdownMenu::-webkit-scrollbar-thumb {
-  background-color: #cbd5e1;
-  border-radius: 3px;
+  background-color: #e2e8f0;
+  border-radius: 10px;
 }
 
 .checkboxOption {
@@ -76,9 +73,9 @@
   gap: 10px;
   padding: 8px 14px;
   font-size: 14px;
-  color: #334155;
+  color: #333333;
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: 0.15s;
   user-select: none;
 }
 
@@ -89,12 +86,14 @@
 .checkboxOption input[type='checkbox'] {
   width: 16px;
   height: 16px;
-  accent-color: #f4717a;
+  accent-color: #FF2D55;
+  opacity: 0.5;
   cursor: pointer;
 }
 
 .saleBtn {
-  background-color: #f87171;
+  background-color: #FF2D55;
+  opacity: 0.5;
   min-width: 120px;
   color: #ffffff;
   border: none;
@@ -106,22 +105,18 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: opacity 0.2s ease, transform 0.1s ease;
-}
-
-.saleBtnText {
-  margin: 0;
+  transition: 0.2s;
 }
 
 .saleBtn .dismissIcon {
   width: 12px;
   height: 12px;
   color: #ffffff;
-  transition: 0.15s ease;
+  transition: 0.15s;
 }
 
 .saleBtn:hover {
-  opacity: 0.9;
+  opacity: 0.6;
 }
 
 .saleBtn:active {
@@ -129,8 +124,7 @@
 }
 
 .saleActive {
-  background-color: #ef4444;
-  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+  opacity: 0.7;
 }
 
 .chipsRow {
@@ -165,11 +159,11 @@
   width: 12px;
   height: 12px;
   color: #757575;
-  transition: 0.15s ease;
+  transition: 0.15s;
 }
 
 .chipRemove:hover .dismissIcon {
-  color: #0f172a;
+  color: #333333;
 }
 
 .sortRow {
@@ -180,30 +174,33 @@
 }
 
 .sortLabel {
-  color: #94a3b8;
+  color: #333333;
+  opacity: 0.5;
 }
 
 .sortBtn {
   background: transparent;
   border: none;
-  color: #94a3b8;
+  color: #333333;
+  opacity: 0.7;
   cursor: pointer;
   font-size: 13px;
   padding: 0;
-  transition: color 0.2s ease;
+  transition: 0.2s;
 }
 
 .sortBtn:hover {
-  color: #f4717a;
+  color: #F4717A;
+  opacity: 0.7;
 }
 
 .activeSort {
-  color: #f4717a;
-  font-weight: 600;
+  color: #F4717A;
+  font-weight: 700;
 }
 
 .arrow {
-  transition: transform 0.2s ease;
+  transition: 0.2s;
 }
 
 .arrowUp {

@@ -9,12 +9,12 @@
 .link {
   background: none;
   border: none;
-  padding: 0;
   font: inherit;
-  color: #f87171;
+  color: #FF2D55;
   cursor: pointer;
   font-weight: 500;
-  transition: opacity 0.2s ease;
+  transition: 0.2s;
+  opacity: 0.5;
 }
 
 .link:hover {
@@ -23,12 +23,10 @@
 }
 
 .separator {
-  color: #94a3b8;
-  font-size: 12px;
-  user-select: none;
+  color: #212121;
+  font-size: 16px;
 }
 
 .current {
-  color: #64748b;
-  font-weight: 500;
+  color: #333333;
 }

@@ -1,16 +1,10 @@
-.page {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: #f9f9fb;
-}
-
-.container {
-  flex: 1;
+.content {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 16px;
+  background-color: #f9f9fb;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 .authCard {

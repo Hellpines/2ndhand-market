@@ -3,8 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useGetProductsQuery } from '../../services/productsApi';
 import { toggleFilterValue, resetAllFilters } from '../../store/slices/filterSlice';
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
+import Layout from '../../components/Layout/Layout';
 import style from './ShopsPage.module.css';
 
 export default function ShopsPage() {
@@ -56,70 +55,64 @@ export default function ShopsPage() {
   };
 
   return (
-    <div className={style.page}>
-      <Header />
+    <Layout contentClassName={style.content}>
+      <div className={style.hero}>
+        <h1 className={style.title}>Our Partner Shops</h1>
 
-      <main className={style.container}>
-        <div className={style.hero}>
-          <h1 className={style.title}>Our Partner Shops</h1>
-
-          <div className={style.searchWrapper}>
-            <input
-              type="text"
-              placeholder="Search shop by name or address..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className={style.searchInput}
-            />
-          </div>
+        <div className={style.searchWrapper}>
+          <input
+            type="text"
+            placeholder="Search shop by name or address..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className={style.searchInput}
+          />
         </div>
+      </div>
 
-        {isLoading && <div className={style.status}>Loading shops...</div>}
-        {isError && <div className={style.status}>Failed to load shops data</div>}
+      {isLoading && <div className={style.status}>Loading shops...</div>}
+      {isError && <div className={style.status}>Failed to load shops data</div>}
 
-        {!isLoading && !isError && (
-          <>
-            {filteredShops.length === 0 ? (
-              <div className={style.status}>No shops found matching "{searchTerm}"</div>
-            ) : (
-              <div className={style.grid}>
-                {filteredShops.map((shop) => (
-                  <article key={shop.id} className={style.shopCard}>
-                    <div className={style.imageWrapper}>
-                      <img src={shop.image} alt={shop.name} className={style.shopImg} />
-                      <span className={style.itemsBadge}>{shop.itemsCount} items</span>
+      {!isLoading && !isError && (
+        <>
+          {filteredShops.length === 0 ? (
+            <div className={style.status}>No shops found matching "{searchTerm}"</div>
+          ) : (
+            <div className={style.grid}>
+              {filteredShops.map((shop) => (
+                <article key={shop.id} className={style.shopCard}>
+                  <div className={style.imageWrapper}>
+                    <img src={shop.image} alt={shop.name} className={style.shopImg} />
+                    <span className={style.itemsBadge}>{shop.itemsCount} items</span>
+                  </div>
+
+                  <div className={style.cardBody}>
+                    <h3 className={style.shopTitle}>{shop.name}</h3>
+
+                    <div className={style.infoRow}>
+                      <span className={style.infoLabel}>Address:</span>
+                      <span className={style.infoValue}>{shop.location}</span>
                     </div>
 
-                    <div className={style.cardBody}>
-                      <h3 className={style.shopTitle}>{shop.name}</h3>
-
-                      <div className={style.infoRow}>
-                        <span className={style.infoLabel}>Address:</span>
-                        <span className={style.infoValue}>{shop.location}</span>
-                      </div>
-
-                      <div className={style.infoRow}>
-                        <span className={style.infoLabel}>Work Hours:</span>
-                        <span className={style.infoValue}>{shop.workHours}</span>
-                      </div>
-
-                      <button
-                        type="button"
-                        className={style.viewProductsBtn}
-                        onClick={() => handleSelectShop(shop.name)}
-                      >
-                        View Store Products
-                      </button>
+                    <div className={style.infoRow}>
+                      <span className={style.infoLabel}>Work Hours:</span>
+                      <span className={style.infoValue}>{shop.workHours}</span>
                     </div>
-                  </article>
-                ))}
-              </div>
-            )}
-          </>
-        )}
-      </main>
 
-      <Footer />
-    </div>
+                    <button
+                      type="button"
+                      className={style.viewProductsBtn}
+                      onClick={() => handleSelectShop(shop.name)}
+                    >
+                      View Store Products
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+    </Layout>
   );
 }

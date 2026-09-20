@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../store/slices/authSlice';
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
+import Layout from '../../components/Layout/Layout';
 import style from './Auth.module.css';
 
 export default function SignUpPage() {
@@ -55,74 +54,70 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className={style.page}>
-      <Header isAuth />
-      <main className={style.container}>
-        <div className={style.authCard}>
-          <h1 className={style.title}>Sign Up</h1>
-          {error && <p className={style.errorMessage}>{error}</p>}
+    <Layout isAuth contentClassName={style.content}>
+      <div className={style.authCard}>
+        <h1 className={style.title}>Sign Up</h1>
+        {error && <p className={style.errorMessage}>{error}</p>}
 
-          <form onSubmit={handleSubmit} className={style.form}>
-            <div className={style.field}>
-              <label htmlFor="name">Full Name</label>
-              <input
-                id="name"
-                type="text"
-                name="name"
-                placeholder="John Doe"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className={style.field}>
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                name="email"
-                placeholder="example@mail.com"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className={style.field}>
-              <label htmlFor="password">Password</label>
-              <input
-                id="password"
-                type="password"
-                name="password"
-                placeholder="••••••••"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className={style.field}>
-              <label htmlFor="confirmPassword">Confirm Password</label>
-              <input
-                id="confirmPassword"
-                type="password"
-                name="confirmPassword"
-                placeholder="••••••••"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <button type="submit" className={style.submitBtn}>
-              Create Account
-            </button>
-          </form>
+        <form onSubmit={handleSubmit} className={style.form}>
+          <div className={style.field}>
+            <label htmlFor="name">Full Name</label>
+            <input
+              id="name"
+              type="text"
+              name="name"
+              placeholder="John Doe"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className={style.field}>
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              placeholder="example@mail.com"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className={style.field}>
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              name="password"
+              placeholder="••••••••"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className={style.field}>
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input
+              id="confirmPassword"
+              type="password"
+              name="confirmPassword"
+              placeholder="••••••••"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button type="submit" className={style.submitBtn}>
+            Create Account
+          </button>
+        </form>
 
-          <p className={style.switchText}>
-            Already have an account?
-            <Link to="/login">Sign In</Link>
-          </p>
-        </div>
-      </main>
-      <Footer />
-    </div>
+        <p className={style.switchText}>
+          Already have an account?
+          <Link to="/login">Sign In</Link>
+        </p>
+      </div>
+    </Layout>
   );
 }

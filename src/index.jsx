@@ -1,5 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import App from './App';
 import MyItemsPage from './pages/MyItemsPage/MyItemsPage';
 import WishListPage from './pages/WishListPage/WishListPage';
@@ -7,7 +8,6 @@ import AboutUsPage from './pages/AboutUsPage/AboutUsPage';
 import SignInPage from './pages/Auth/SignInPage';
 import SignUpPage from './pages/Auth/SignUpPage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
-import { Provider } from 'react-redux';
 import { store } from './store';
 import ShopsPage from './pages/ShopsPage/ShopsPage';
 import MerchantPage from './pages/MerchantPage/MerchantPage';

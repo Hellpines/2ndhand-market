@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import App from './App';
 import MyItemsPage from './pages/MyItemsPage/MyItemsPage';
@@ -17,7 +17,7 @@ const root = createRoot(container);
 
 root.render(
     <Provider store={store}>
-        <HashRouter>
+        <BrowserRouter>
             <Routes>
                 <Route element={<App />} path='/'/>
                 <Route element={<MyItemsPage />} path='/my-items'/>
@@ -29,6 +29,6 @@ root.render(
                 <Route element={<ShopsPage />} path='/shops'/>
                 <Route element={<MerchantPage />} path='/merchant'/>
             </Routes>
-        </HashRouter>
+        </BrowserRouter>
     </Provider>
 );

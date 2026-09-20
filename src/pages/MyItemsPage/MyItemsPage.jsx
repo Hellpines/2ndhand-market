@@ -45,21 +45,21 @@ export default function MyItemsPage() {
     <Layout contentClassName={style.content}>
       <div className={style.tabs}>
         <button
-          type="button"
+          type='button'
           className={`${style.tab} ${activeTab === 'cart' ? style.activeTab : ''}`}
           onClick={() => setActiveTab('cart')}
         >
           Cart ({cartItems.length})
         </button>
         <button
-          type="button"
+          type='button'
           className={`${style.tab} ${activeTab === 'reserved' ? style.activeTab : ''}`}
           onClick={() => setActiveTab('reserved')}
         >
           Reserved
         </button>
         <button
-          type="button"
+          type='button'
           className={`${style.tab} ${activeTab === 'purchased' ? style.activeTab : ''}`}
           onClick={() => setActiveTab('purchased')}
         >
@@ -79,7 +79,7 @@ export default function MyItemsPage() {
                     <ProductCard
                       key={item.id}
                       product={item}
-                      variant="cart"
+                      variant='cart'
                       onCheckoutSingle={handleCheckoutSingle}
                     />
                   ))}
@@ -91,7 +91,7 @@ export default function MyItemsPage() {
                     <span>Total:</span>
                     <strong>{totalCartPrice.toFixed(2)} €</strong>
                   </div>
-                  <button type="button" className={style.checkoutBtn} onClick={handleCheckoutAll}>
+                  <button type='button' className={style.checkoutBtn} onClick={handleCheckoutAll}>
                     Checkout All
                   </button>
                 </div>
@@ -131,7 +131,7 @@ export default function MyItemsPage() {
                           <p>Size: <span>{item.size || 'N/A'}</span></p>
                           <p>Color: <span>{item.color || 'N/A'}</span></p>
                           <button
-                            type="button"
+                            type='button'
                             className={style.cancelReserveBtn}
                             onClick={() =>
                               dispatch(

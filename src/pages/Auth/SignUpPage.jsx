@@ -59,12 +59,12 @@ export default function SignUpPage() {
 
         <form onSubmit={handleSubmit} className={style.form}>
           <div className={style.field}>
-            <label htmlFor="name">Full Name</label>
+            <label htmlFor='name'>Full Name</label>
             <input
-              id="name"
-              type="text"
-              name="name"
-              placeholder="John Doe"
+              id='name'
+              type='text'
+              name='name'
+              placeholder='John Doe'
               value={formData.name}
               onChange={(e) => {
                 handleChange(e);
@@ -74,12 +74,12 @@ export default function SignUpPage() {
             />
           </div>
           <div className={style.field}>
-            <label htmlFor="email">Email</label>
+            <label htmlFor='email'>Email</label>
             <input
-              id="email"
-              type="email"
-              name="email"
-              placeholder="example@mail.com"
+              id='email'
+              type='email'
+              name='email'
+              placeholder='example@mail.com'
               value={formData.email}
               onChange={(e) => {
                 handleChange(e);
@@ -89,12 +89,12 @@ export default function SignUpPage() {
             />
           </div>
           <div className={style.field}>
-            <label htmlFor="password">Password</label>
+            <label htmlFor='password'>Password</label>
             <input
-              id="password"
-              type="password"
-              name="password"
-              placeholder="••••••••"
+              id='password'
+              type='password'
+              name='password'
+              placeholder='••••••••'
               value={formData.password}
               onChange={(e) => {
                 handleChange(e);
@@ -104,12 +104,12 @@ export default function SignUpPage() {
             />
           </div>
           <div className={style.field}>
-            <label htmlFor="confirmPassword">Confirm Password</label>
+            <label htmlFor='confirmPassword'>Confirm Password</label>
             <input
-              id="confirmPassword"
-              type="password"
-              name="confirmPassword"
-              placeholder="••••••••"
+              id='confirmPassword'
+              type='password'
+              name='confirmPassword'
+              placeholder='••••••••'
               value={formData.confirmPassword}
               onChange={(e) => {
                 handleChange(e);
@@ -118,14 +118,14 @@ export default function SignUpPage() {
               required
             />
           </div>
-          <button type="submit" className={style.submitBtn}>
+          <button type='submit' className={style.submitBtn}>
             Create Account
           </button>
         </form>
 
         <p className={style.switchText}>
           Already have an account?
-          <Link to="/login">Sign In</Link>
+          <Link to='/login'>Sign In</Link>
         </p>
       </div>
     </Layout>

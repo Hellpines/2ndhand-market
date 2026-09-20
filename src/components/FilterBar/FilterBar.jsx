@@ -61,21 +61,25 @@ export default function FilterBar({
           return (
             <div key={key} className={style.dropdownWrapper}>
               <button
-                type="button"
+                type='button'
                 className={`${style.select} ${selectedValues.length > 0 ? style.activeSelect : ''}`}
                 onClick={() => toggleDropdown(key)}
+                aria-expanded={isOpen}
+                aria-controls={`filter-${key}`}
+                aria-label={`Toggle ${label} filter`}
               >
                 <span>{label}</span> <ArrowIcon className={`${style.arrow} ${isOpen ? style.arrowUp : ''}`} />
               </button>
 
               {isOpen && (
-                <div className={style.dropdownMenu}>
+                <div className={style.dropdownMenu} id={`filter-${key}`} role='group' aria-label={`${label} filter options`}>
                   {options.map((option) => (
                     <label key={option} className={style.checkboxOption}>
                       <input
-                        type="checkbox"
+                        type='checkbox'
                         checked={selectedValues.includes(option)}
                         onChange={() => handleToggleOption(key, option)}
+                        aria-label={`Filter by ${label}: ${option}`}
                       />
                       <span>{option}</span>
                     </label>
@@ -87,9 +91,11 @@ export default function FilterBar({
         })}
 
         <button
-          type="button"
+          type='button'
           className={`${style.saleBtn} ${filters.isSale ? style.saleActive : ''}`}
           onClick={() => onChangeFilters('isSale')}
+          aria-label={filters.isSale ? 'Disable sale filter' : 'Enable sale filter'}
+          aria-pressed={Boolean(filters.isSale)}
         >
           <p className={style.saleBtnText}>Sale</p>
           {filters.isSale && <DismissIcon className={style.dismissIcon} />}
@@ -101,9 +107,10 @@ export default function FilterBar({
           <span className={style.chip}>
             {activeCategory}{' '}
             <button
-              type="button"
+              type='button'
               onClick={() => onSelectCategory && onSelectCategory(null)}
               className={style.chipRemove}
+              aria-label={`Remove ${activeCategory} category filter`}
             >
               <DismissIcon className={style.dismissIcon} />
             </button>
@@ -118,9 +125,10 @@ export default function FilterBar({
             <span key={key} className={style.chip}>
               {val.join(', ')}{' '}
               <button
-                type="button"
+                type='button'
                 onClick={() => handleRemoveFilter(key)}
                 className={style.chipRemove}
+                aria-label={`Remove ${key} filter`}
               >
                 <DismissIcon className={style.dismissIcon} />
               </button>
@@ -132,16 +140,20 @@ export default function FilterBar({
       <div className={style.sortRow}>
         <span className={style.sortLabel}>Sort by:</span>
         <button
-          type="button"
+          type='button'
           className={`${style.sortBtn} ${sortBy === 'asc' ? style.activeSort : ''}`}
           onClick={() => onChangeSort(sortBy === 'asc' ? null : 'asc')}
+          aria-label='Sort products by ascending price'
+          aria-pressed={sortBy === 'asc'}
         >
           Ascending price
         </button>
         <button
-          type="button"
+          type='button'
           className={`${style.sortBtn} ${sortBy === 'desc' ? style.activeSort : ''}`}
           onClick={() => onChangeSort(sortBy === 'desc' ? null : 'desc')}
+          aria-label='Sort products by descending price'
+          aria-pressed={sortBy === 'desc'}
         >
           Descending price
         </button>

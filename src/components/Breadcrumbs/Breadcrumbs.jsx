@@ -15,8 +15,8 @@ export default function Breadcrumbs({
   onSelectDepartment,
 }) {
   return (
-    <nav className={style.breadcrumbs}>
-      <button type="button" className={style.link} onClick={onResetAll}>
+    <nav className={style.breadcrumbs} aria-label='Breadcrumb'>
+      <button type='button' className={style.link} onClick={onResetAll} aria-label='Reset filters and return to home'>
         Home
       </button>
 
@@ -25,9 +25,10 @@ export default function Breadcrumbs({
           <span className={style.separator}>›</span>
           {activeCategory ? (
             <button
-              type="button"
+              type='button'
               className={style.link}
               onClick={() => onSelectDepartment(activeDepartment)}
+              aria-label={`View ${formatLabel(activeDepartment)} department`}
             >
               {formatLabel(activeDepartment)}
             </button>

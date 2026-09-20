@@ -12,7 +12,7 @@ export default function WishListPage() {
     <Layout contentClassName={style.content}>
       <div className={style.tabContainer}>
         <button
-          type="button"
+          type='button'
           className={`${style.tab} ${style.activeTab}`}
         >
           Wish List ({favorites.length})

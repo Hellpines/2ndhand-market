@@ -90,11 +90,11 @@ export default function ProductCard({ product, variant = 'catalog', onCheckoutSi
           src={product.thumbnail || product.image}
           alt={product.title}
           className={style.image}
-          loading="lazy"
+          loading='lazy'
         />
 
         <button
-          type="button"
+          type='button'
           className={style.favoriteBtn}
           onClick={handleToggleFavorite}
           aria-label={isFavorite ? 'Remove from wishlist' : 'Add to wishlist'}
@@ -133,14 +133,14 @@ export default function ProductCard({ product, variant = 'catalog', onCheckoutSi
           {variant === 'cart' ? (
             <div className={style.cartActions}>
               <button
-                type="button"
+                type='button'
                 className={style.removeBtn}
                 onClick={handleRemoveFromCart}
               >
                 Remove
               </button>
               <button
-                type="button"
+                type='button'
                 className={style.checkoutCardBtn}
                 onClick={handleSingleCheckout}
               >
@@ -154,17 +154,17 @@ export default function ProductCard({ product, variant = 'catalog', onCheckoutSi
           ) : (
             <div className={style.actions}>
               <button
-                type="button"
+                type='button'
                 onClick={handleReserve}
                 className={style.reserveBtn}
               >
                 Reserve
               </button>
               <button
-                type="button"
+                type='button'
                 className={style.cartBtn}
                 onClick={handleAddToCart}
-                aria-label="Add to cart"
+                aria-label='Add to cart'
               >
                 <BasketIcon className={style.basketIcon} />
               </button>

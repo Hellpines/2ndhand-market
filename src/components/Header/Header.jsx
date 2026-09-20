@@ -36,7 +36,7 @@ export default function Header({ isAuth = false }) {
   if (isAuth) {
     return (
       <header className={styles.authHeader}>
-        <Link to="#" className={styles.logoLink}>
+        <Link to='#' className={styles.logoLink}>
           <Logo className={styles.logoImg} />
           <div className={styles.logoText}>
             <span>2ND</span>
@@ -52,7 +52,7 @@ export default function Header({ isAuth = false }) {
     <header className={styles.header}>
       <div className={styles.container}>
         <div className={styles.leftContainer}>
-          <Link to="/" className={styles.logoLink}>
+          <Link to='/' className={styles.logoLink} aria-label='Go to homepage'>
             <Logo className={styles.logoImg} />
             <div className={styles.logoText}>
               <span>2ND</span>
@@ -62,35 +62,51 @@ export default function Header({ isAuth = false }) {
           </Link>
 
           <div className={styles.searchContainer}>
+            <label htmlFor='site-search' className={styles.visuallyHidden}>Search products</label>
             <SearchIcon className={styles.searchIcon} />
             <input
-              type="text"
+              id='site-search'
+              type='text'
               value={searchQuery}
               onChange={handleSearchChange}
               className={styles.searchInput}
+              placeholder='Search products'
+              aria-label='Search products'
             />
           </div>
         </div>
 
         <div className={styles.navActions}>
-          <nav className={styles.navLinks}>
-            <Link to="/about-us" className={styles.navLink}>About us</Link>
-            <Link to="/shops" className={styles.navLink}>All shops</Link>
-            <Link to="/merchant" className={styles.navLink}>Become a merchant</Link>
+          <nav className={styles.navLinks} aria-label='Main navigation'>
+            <Link to='/about-us' className={styles.navLink}>About us</Link>
+            <Link to='/shops' className={styles.navLink}>All shops</Link>
+            <Link to='/merchant' className={styles.navLink}>Become a merchant</Link>
           </nav>
 
           <div className={styles.actions}>
-            <Link to={`/${isAuthenticated ? './wish-list' : './login'}`} className={styles.actionItem}>
+            <Link
+              to={`/${isAuthenticated ? './wish-list' : './login'}`}
+              className={styles.actionItem}
+              aria-label={isAuthenticated ? `Open wishlist with ${favoritesCount} items` : 'Open login'}
+            >
               <HeartIcon className={favoritesCount > 0 ? styles.heartIcon : styles.heartIconInactive} />
-              <span>{favoritesCount}</span>
+              <span aria-hidden='true'>{favoritesCount}</span>
             </Link>
 
-            <Link to={`/${isAuthenticated ? './my-items' : './login'}`} className={styles.actionItem}>
+            <Link
+              to={`/${isAuthenticated ? './my-items' : './login'}`}
+              className={styles.actionItem}
+              aria-label={isAuthenticated ? `Open cart with ${cartCount} items` : 'Open login'}
+            >
               <BasketIcon className={styles.basketIcon} />
-              <span>{cartCount}</span>
+              <span aria-hidden='true'>{cartCount}</span>
             </Link>
 
-            <Link to={`/${isAuthenticated ? './profile' : './login'}`} className={styles.actionItem}>
+            <Link
+              to={`/${isAuthenticated ? './profile' : './login'}`}
+              className={styles.actionItem}
+              aria-label={isAuthenticated ? 'Open profile page' : 'Open login page'}
+            >
               <UserIcon className={styles.userIcon} />
             </Link>
           </div>

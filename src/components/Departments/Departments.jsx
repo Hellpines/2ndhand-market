@@ -15,9 +15,11 @@ export default function Departments({ activeDepartment = null, onSelectDepartmen
           return (
             <button
               key={dept.id}
-              type="button"
+              type='button'
               className={`${style.item} ${isActive ? style.active : ''}`}
               onClick={handleClick}
+              aria-label={`Filter by ${dept.label}`}
+              aria-pressed={isActive}
             >
               {dept.label}
             </button>

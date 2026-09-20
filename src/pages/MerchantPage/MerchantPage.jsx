@@ -50,19 +50,19 @@ export default function MerchantPage() {
             <p>
               Thank you for your interest. Our team will review your shop details and contact you soon.
             </p>
-            <button type="button" onClick={handleReset} className={style.submitBtn}>
+            <button type='button' onClick={handleReset} className={style.submitBtn}>
               Submit Another Application
             </button>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className={style.form}>
             <div className={style.field}>
-              <label htmlFor="shopName">Shop Name</label>
+              <label htmlFor='shopName'>Shop Name</label>
               <input
-                id="shopName"
-                type="text"
-                name="shopName"
-                placeholder="e.g. Vintage Treasures"
+                id='shopName'
+                type='text'
+                name='shopName'
+                placeholder='e.g. Vintage Treasures'
                 value={formData.shopName}
                 onChange={handleChange}
                 required
@@ -70,12 +70,12 @@ export default function MerchantPage() {
             </div>
 
             <div className={style.field}>
-              <label htmlFor="ownerName">Contact Person Name</label>
+              <label htmlFor='ownerName'>Contact Person Name</label>
               <input
-                id="ownerName"
-                type="text"
-                name="ownerName"
-                placeholder="John Doe"
+                id='ownerName'
+                type='text'
+                name='ownerName'
+                placeholder='John Doe'
                 value={formData.ownerName}
                 onChange={handleChange}
                 required
@@ -84,12 +84,12 @@ export default function MerchantPage() {
 
             <div className={style.row}>
               <div className={style.field}>
-                <label htmlFor="email">Email Address</label>
+                <label htmlFor='email'>Email Address</label>
                 <input
-                  id="email"
-                  type="email"
-                  name="email"
-                  placeholder="merchant@example.com"
+                  id='email'
+                  type='email'
+                  name='email'
+                  placeholder='merchant@example.com'
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -97,12 +97,12 @@ export default function MerchantPage() {
               </div>
 
               <div className={style.field}>
-                <label htmlFor="phone">Phone Number</label>
+                <label htmlFor='phone'>Phone Number</label>
                 <input
-                  id="phone"
-                  type="tel"
-                  name="phone"
-                  placeholder="+34 600 000 000"
+                  id='phone'
+                  type='tel'
+                  name='phone'
+                  placeholder='+34 600 000 000'
                   value={formData.phone}
                   onChange={handleChange}
                   required
@@ -111,19 +111,19 @@ export default function MerchantPage() {
             </div>
 
             <div className={style.field}>
-              <label htmlFor="description">Shop Description & Location</label>
+              <label htmlFor='description'>Shop Description & Location</label>
               <textarea
-                id="description"
-                name="description"
-                rows="4"
-                placeholder="Tell us about your second-hand store and its address..."
+                id='description'
+                name='description'
+                rows='4'
+                placeholder='Tell us about your second-hand store and its address...'
                 value={formData.description}
                 onChange={handleChange}
                 required
               />
             </div>
 
-            <button type="submit" className={style.submitBtn}>
+            <button type='submit' className={style.submitBtn}>
               Submit Merchant Request
             </button>
           </form>

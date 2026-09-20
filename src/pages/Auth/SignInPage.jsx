@@ -42,12 +42,12 @@ export default function SignInPage() {
 
         <form onSubmit={handleSubmit} className={style.form}>
           <div className={style.field}>
-            <label htmlFor="email">Email</label>
+            <label htmlFor='email'>Email</label>
             <input
-              id="email"
-              type="email"
-              name="email"
-              placeholder="example@mail.com"
+              id='email'
+              type='email'
+              name='email'
+              placeholder='example@mail.com'
               value={formData.email}
               onChange={(e) => {
                 handleChange(e);
@@ -57,12 +57,12 @@ export default function SignInPage() {
             />
           </div>
           <div className={style.field}>
-            <label htmlFor="password">Password</label>
+            <label htmlFor='password'>Password</label>
             <input
-              id="password"
-              type="password"
-              name="password"
-              placeholder="••••••••"
+              id='password'
+              type='password'
+              name='password'
+              placeholder='••••••••'
               value={formData.password}
               onChange={(e) => {
                 handleChange(e);
@@ -71,14 +71,14 @@ export default function SignInPage() {
               required
             />
           </div>
-          <button type="submit" className={style.submitBtn}>
+          <button type='submit' className={style.submitBtn}>
             Sign In
           </button>
         </form>
 
         <p className={style.switchText}>
           Don't have an account?
-          <Link to="/signup">Sign Up</Link>
+          <Link to='/signup'>Sign Up</Link>
         </p>
       </div>
     </Layout>

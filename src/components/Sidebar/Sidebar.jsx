@@ -6,18 +6,18 @@ import style from './Sidebar.module.css';
 const ChevronIcon = ({ isOpen, color = '#2D3748' }) => (
   <svg
     className={`${style.arrow} ${isOpen ? style.open : ''}`}
-    width="12"
-    height="8"
-    viewBox="0 0 12 8"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
+    width='12'
+    height='8'
+    viewBox='0 0 12 8'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
   >
     <path
-      d="M1 1.5L6 6.5L11 1.5"
+      d='M1 1.5L6 6.5L11 1.5'
       stroke={color}
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      strokeWidth='1.5'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
   </svg>
 );
@@ -57,9 +57,11 @@ export default function Sidebar({ activeDepartment = 'new', activeCategory, onSe
           return (
             <li key={group.title} className={style.groupItem}>
               <button
-                type="button"
+                type='button'
                 className={style.groupHeader}
                 onClick={() => setOpenSection(isOpen ? null : group.title)}
+                aria-expanded={isOpen}
+                aria-label={`${isOpen ? 'Collapse' : 'Expand'} ${group.title} category group`}
               >
                 <span className={style.groupTitle}>{group.title}</span>
                 <ChevronIcon isOpen={isOpen} />
@@ -73,12 +75,14 @@ export default function Sidebar({ activeDepartment = 'new', activeCategory, onSe
                     return (
                       <li key={sub.title} className={style.subGroupItem}>
                         <button
-                          type="button"
+                          type='button'
                           className={style.subHeader}
                           onClick={() => setOpenSubSection(isSubOpen ? null : sub.title)}
+                          aria-expanded={isSubOpen}
+                          aria-label={`${isSubOpen ? 'Collapse' : 'Expand'} ${sub.title} subcategory`}
                         >
                           <span className={style.subTitle}>{sub.title}</span>
-                          <ChevronIcon isOpen={isSubOpen} color="#718096" />
+                          <ChevronIcon isOpen={isSubOpen} color='#718096' />
                         </button>
 
                         {isSubOpen && (
@@ -86,9 +90,11 @@ export default function Sidebar({ activeDepartment = 'new', activeCategory, onSe
                             {sub.items.map((item) => (
                               <li key={item.slug}>
                                 <button
-                                  type="button"
+                                  type='button'
                                   className={`${style.itemBtn} ${activeCategory === item.slug ? style.active : ''}`}
                                   onClick={() => onSelectCategory(item.slug)}
+                                  aria-label={`Select ${item.label} category`}
+                                  aria-pressed={activeCategory === item.slug}
                                 >
                                   {item.label}
                                 </button>

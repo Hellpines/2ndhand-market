@@ -1,7 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useGetProductsQuery } from '../../services/productsApi';
+import { fetchProducts } from '../../services/productsApi';
 import { toggleFilterValue, resetAllFilters } from '../../store/slices/filterSlice';
 import Layout from '../../components/Layout/Layout';
 import style from './ShopsPage.module.css';
@@ -9,11 +9,41 @@ import style from './ShopsPage.module.css';
 export default function ShopsPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { data, isLoading, isError } = useGetProductsQuery();
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   const [searchTerm, setSearchTerm] = useState('');
 
-  const products = data?.products || [];
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadProducts = async () => {
+      try {
+        setIsLoading(true);
+        setIsError(false);
+        const response = await fetchProducts();
+
+        if (isMounted) {
+          setProducts(response.products || []);
+        }
+      } catch {
+        if (isMounted) {
+          setIsError(true);
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadProducts();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const shopsList = useMemo(() => {
     const shopMap = new Map();
@@ -61,8 +91,8 @@ export default function ShopsPage() {
 
         <div className={style.searchWrapper}>
           <input
-            type="text"
-            placeholder="Search shop by name or address..."
+            type='text'
+            placeholder='Search shop by name or address...'
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className={style.searchInput}
@@ -76,7 +106,7 @@ export default function ShopsPage() {
       {!isLoading && !isError && (
         <>
           {filteredShops.length === 0 ? (
-            <div className={style.status}>No shops found matching "{searchTerm}"</div>
+            <div className={style.status}>No shops found matching '{searchTerm}'</div>
           ) : (
             <div className={style.grid}>
               {filteredShops.map((shop) => (
@@ -100,7 +130,7 @@ export default function ShopsPage() {
                     </div>
 
                     <button
-                      type="button"
+                      type='button'
                       className={style.viewProductsBtn}
                       onClick={() => handleSelectShop(shop.name)}
                     >

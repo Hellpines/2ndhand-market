@@ -1,5 +1,7 @@
 # 2ndhand-market
 
+Live demo: https://hellpines.github.io/2ndhand-market/
+
 Marketplace application for second-hand goods with a product catalog, filtering, user authentication, wishlist, shopping cart, and personal account features.
 
 ## Overview

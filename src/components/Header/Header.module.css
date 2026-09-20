@@ -17,6 +17,8 @@
     display: flex;
     align-items: center;
     gap: 32px;
+    flex: 1;
+    min-width: 0;
 }
 
 .logoLink {
@@ -24,6 +26,7 @@
     align-items: center;
     gap: 12px;
     text-decoration: none;
+    flex-shrink: 0;
 }
 
 .logoText {
@@ -40,6 +43,7 @@
     position: relative;
     flex: 1;
     max-width: 380px;
+    min-width: 120px;
 }
 
 .searchInput {
@@ -147,12 +151,98 @@
     border-bottom: 1px solid #e5e5ea;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+    .header {
+        padding: 18px 24px;
+    }
+
+    .container {
+        gap: 12px;
+    }
+
+    .leftContainer {
+        gap: 20px;
+    }
+
+    .navActions {
+        gap: 18px;
+    }
+
     .navLinks {
-        display: none;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 16px 20px;
+    }
+
+    .container {
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .leftContainer {
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        flex-direction: column;
+    }
+
+    .navActions {
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .navLinks {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 8px 14px;
+        width: 100%;
+    }
+
+    .navLink {
+        white-space: nowrap;
+        font-size: 12px;
     }
 
     .searchContainer {
-        max-width: 180px;
+        max-width: 420px;
+        width: 100%;
+        flex: none;
+    }
+
+    .actions {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 14px 12px;
+    }
+
+    .leftContainer {
+        flex-wrap: wrap;
+    }
+
+    .logoLink {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .actions {
+        gap: 12px;
+        justify-content: center;
     }
 }

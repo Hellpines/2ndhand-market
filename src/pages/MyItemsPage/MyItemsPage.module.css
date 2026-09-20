@@ -1,13 +1,28 @@
-.content {
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  flex: 1;
+  width: 100%;
   max-width: 1200px;
-  font-family: inherit;
+  margin: 0 auto;
+  padding: 40px 16px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .tabs {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 16px;
   margin-bottom: 32px;
+  width: 100%;
 }
 
 .tab {
@@ -46,10 +61,16 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
+  align-items: center;
 }
 
-.cartSection {
+.cartSection,
+.reservedSection,
+.purchasedSection {
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .cartWrapper {
@@ -57,12 +78,16 @@
   grid-template-columns: 1fr 320px;
   gap: 32px;
   align-items: start;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .cartGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
+  justify-items: center;
 }
 
 .cartSummary {
@@ -118,6 +143,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
 }
 
 .shopCard {
@@ -126,6 +152,9 @@
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .shopHeader {
@@ -150,6 +179,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
+  justify-items: center;
 }
 
 .itemCard {
@@ -158,6 +188,8 @@
   border-radius: 12px;
   padding: 12px;
   align-items: center;
+  width: 100%;
+  justify-content: center;
 }
 
 .itemCard img {
@@ -189,18 +221,12 @@
   font-size: 12px;
   color: #333333;
   opacity: 0.5;
-  
-  .itemPrice {
-    font-weight: 600;
-    font-size: 20px;
-  }
 }
 
 .itemInfo p span {
   font-weight: 600;
   opacity: 1;
 }
-
 
 .cancelReserveBtn {
   margin-top: 8px;
@@ -229,7 +255,43 @@
 }
 
 @media (max-width: 900px) {
+  .container {
+    padding: 32px 12px 48px;
+  }
+
+  .tabs {
+    flex-wrap: wrap;
+  }
+
   .cartWrapper {
     grid-template-columns: 1fr;
+  }
+
+  .itemsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .tab {
+    font-size: 14px;
+  }
+
+  .cartWrapper {
+    justify-items: center;
+  }
+
+  .itemCard {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .cancelReserveBtn {
+    align-self: center;
+  }
+
+  .emptySection {
+    margin-top: 48px;
   }
 }

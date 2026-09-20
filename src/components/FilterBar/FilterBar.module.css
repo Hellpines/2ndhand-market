@@ -17,6 +17,38 @@
   position: relative;
 }
 
+@media (max-width: 768px) {
+  .dropdownsRow {
+    gap: 8px;
+  }
+
+  .select {
+    min-width: 120px;
+    width: 100%;
+  }
+
+  .saleBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 520px) {
+  .container {
+    gap: 12px;
+  }
+
+  .dropdownsRow,
+  .chipsRow,
+  .sortRow {
+    width: 100%;
+  }
+
+  .sortRow {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
 .select {
   background-color: #ffffff;
   border: 1px solid #e2e8f0;

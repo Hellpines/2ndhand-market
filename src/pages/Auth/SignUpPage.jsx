@@ -3,24 +3,22 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../store/slices/authSlice';
 import Layout from '../../components/Layout/Layout';
+import useForm from '../../hooks/useForm';
+import useLocalStorage from '../../hooks/useLocalStorage';
 import style from './Auth.module.css';
 
 export default function SignUpPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { read, write } = useLocalStorage();
 
-  const [formData, setFormData] = useState({
+  const { formData, handleChange } = useForm({
     name: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
   const [error, setError] = useState('');
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    if (error) setError('');
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,7 +28,7 @@ export default function SignUpPage() {
       return;
     }
 
-    const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+    const existingUsers = read('users', []);
 
     const userExists = existingUsers.some((u) => u.email === formData.email);
     if (userExists) {
@@ -46,7 +44,7 @@ export default function SignUpPage() {
     };
 
     existingUsers.push(newUser);
-    localStorage.setItem('users', JSON.stringify(existingUsers));
+    write('users', existingUsers);
 
     const { password, ...userSession } = newUser;
     dispatch(loginSuccess(userSession));
@@ -68,7 +66,10 @@ export default function SignUpPage() {
               name="name"
               placeholder="John Doe"
               value={formData.name}
-              onChange={handleChange}
+              onChange={(e) => {
+                handleChange(e);
+                if (error) setError('');
+              }}
               required
             />
           </div>
@@ -80,7 +81,10 @@ export default function SignUpPage() {
               name="email"
               placeholder="example@mail.com"
               value={formData.email}
-              onChange={handleChange}
+              onChange={(e) => {
+                handleChange(e);
+                if (error) setError('');
+              }}
               required
             />
           </div>
@@ -92,7 +96,10 @@ export default function SignUpPage() {
               name="password"
               placeholder="••••••••"
               value={formData.password}
-              onChange={handleChange}
+              onChange={(e) => {
+                handleChange(e);
+                if (error) setError('');
+              }}
               required
             />
           </div>
@@ -104,7 +111,10 @@ export default function SignUpPage() {
               name="confirmPassword"
               placeholder="••••••••"
               value={formData.confirmPassword}
-              onChange={handleChange}
+              onChange={(e) => {
+                handleChange(e);
+                if (error) setError('');
+              }}
               required
             />
           </div>

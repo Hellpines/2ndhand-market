@@ -98,3 +98,17 @@
   font-weight: 600;
   opacity: 1;
 }
+
+@media (max-width: 900px) {
+  .sidebar {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .groupTitle,
+  .subTitle,
+  .itemBtn {
+    font-size: 13px;
+  }
+}

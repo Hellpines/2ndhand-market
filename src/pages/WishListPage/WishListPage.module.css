@@ -1,12 +1,27 @@
-.content {
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  flex: 1;
+  width: 100%;
   max-width: 1200px;
-  font-family: inherit;
+  margin: 0 auto;
+  padding: 40px 16px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .tabContainer {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-bottom: 32px;
+  width: 100%;
 }
 
 .tab {
@@ -40,15 +55,57 @@
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  justify-content: center;
+  justify-items: center;
+  align-items: stretch;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .emptySection {
   text-align: center;
-  margin-top: 150px;
+  margin-top: 80px;
   color: #8e8e93;
   font-size: 16px;
+}
+
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .container {
+    padding: 32px 12px 48px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-items: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .container {
+    padding: 28px 12px 40px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(1, minmax(220px, 280px));
+    justify-content: center;
+    justify-items: center;
+  }
+
+  .tab {
+    font-size: 15px;
+  }
+
+  .emptySection {
+    margin-top: 48px;
+  }
 }

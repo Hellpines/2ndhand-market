@@ -3,24 +3,22 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../store/slices/authSlice';
 import Layout from '../../components/Layout/Layout';
+import useForm from '../../hooks/useForm';
+import useLocalStorage from '../../hooks/useLocalStorage';
 import style from './Auth.module.css';
 
 export default function SignInPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { read } = useLocalStorage();
 
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const { formData, handleChange } = useForm({ email: '', password: '' });
   const [error, setError] = useState('');
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    if (error) setError('');
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+    const existingUsers = read('users', []);
 
     const foundUser = existingUsers.find(
       (u) => u.email === formData.email && u.password === formData.password
@@ -51,7 +49,10 @@ export default function SignInPage() {
               name="email"
               placeholder="example@mail.com"
               value={formData.email}
-              onChange={handleChange}
+              onChange={(e) => {
+                handleChange(e);
+                if (error) setError('');
+              }}
               required
             />
           </div>
@@ -63,7 +64,10 @@ export default function SignInPage() {
               name="password"
               placeholder="••••••••"
               value={formData.password}
-              onChange={handleChange}
+              onChange={(e) => {
+                handleChange(e);
+                if (error) setError('');
+              }}
               required
             />
           </div>

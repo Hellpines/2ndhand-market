@@ -12,15 +12,42 @@ body {
     font-size: 16px;
 }
 
-.app {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
 .main {
     display: flex;
     flex: 1;
     gap: 48px;
     padding: 48px;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+@media (max-width: 900px) {
+    .main {
+        flex-direction: column;
+        gap: 24px;
+        padding: 24px 16px 32px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .content {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .main {
+        padding: 20px 12px 28px;
+        gap: 20px;
+    }
 }

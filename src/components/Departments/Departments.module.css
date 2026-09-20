@@ -11,6 +11,9 @@
   border: 1px solid #E4E4E4;
   border-radius: 40px;
   background-color: #ffffff;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .item {
@@ -45,4 +48,30 @@
   color: #1a202c;
   font-weight: 600;
   box-shadow: inset 0 0 0 1px #cbd5e1;
+}
+
+@media (max-width: 640px) {
+  .wrapper {
+    padding: 8px 12px;
+  }
+
+  .container {
+    width: 100%;
+    border-radius: 20px;
+  }
+
+  .item {
+    flex: 1 1 50%;
+    border-right: none;
+    border-bottom: 1px solid #DBDBDB;
+    padding: 10px 12px;
+  }
+
+  .item:nth-child(2n) {
+    border-left: 1px solid #DBDBDB;
+  }
+
+  .item:last-child {
+    border-bottom: none;
+  }
 }

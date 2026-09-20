@@ -4,11 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../store/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { selectCurrentUser } from '../../store/slices/authSlice';
+import useAuthRedirect from '../../hooks/useAuthRedirect';
 
 export default function Profile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
+
+  useAuthRedirect({ user, redirectTo: '/login' });
 
   const handleLogout = () => {
     dispatch(logout());
@@ -16,7 +19,6 @@ export default function Profile() {
   };
 
   if (!user) {
-    navigate('/login');
     return null;
   }
 

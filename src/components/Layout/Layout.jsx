@@ -1,8 +1,7 @@
 import { lazy } from 'react';
 import Header from '../Header/Header';
 import styles from './Layout.module.css';
-
-const Footer = lazy(() => import('../Footer/Footer'));
+import Footer from '../Footer/Footer';
 
 export default function Layout({ children, isAuth = false, contentClassName = '' }) {
   return (

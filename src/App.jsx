@@ -4,8 +4,7 @@ import Departments from './components/Departments/Departments';
 import Header from './components/Header/Header';
 import ProductGrid from './components/ProductGrid/ProductGrid';
 import Sidebar from './components/Sidebar/Sidebar';
-
-const Footer = lazy(() => import('./components/Footer/Footer'));
+import Footer from './components/Footer/Footer';
 
 export default function App() {
   const [activeDepartment, setActiveDepartment] = useState('women');

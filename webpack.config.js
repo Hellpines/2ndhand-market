@@ -29,7 +29,7 @@ module.exports = (env, argv) => {
             options: {
               presets: [
                 '@babel/preset-env',
-                ['@babel/preset-react', { 
+                ['@babel/preset-react', {
                   runtime: 'automatic',
                   development: !isProduction,
                 }],
@@ -87,6 +87,14 @@ module.exports = (env, argv) => {
       open: true,
       hot: true,
       historyApiFallback: true,
+      proxy: [
+        {
+          context: ['/api-proxy'],
+          target: 'https://dummyjson.com',
+          pathRewrite: { '^/api-proxy': '' },
+          changeOrigin: true,
+        },
+      ],
     },
     devtool: isProduction ? 'source-map' : 'eval-cheap-module-source-map',
   };

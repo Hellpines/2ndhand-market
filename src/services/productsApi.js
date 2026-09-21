@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { CATEGORY_TREE } from '../constants/categories';
 
 export const fetchProducts = async () => {
-  const response = await fetch('https://dummyjson.com/c/e43c-00fa-4b0f-bf65');
+  const response = await fetch('/api-proxy/c/e43c-00fa-4b0f-bf65');
 
   if (!response.ok) {
     throw new Error('Failed to fetch products');
@@ -13,7 +13,7 @@ export const fetchProducts = async () => {
 
 export const productsApi = createApi({
   reducerPath: 'productsApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://dummyjson.com/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: '/api-proxy/' }),
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: () => 'c/e43c-00fa-4b0f-bf65',

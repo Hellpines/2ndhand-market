@@ -12,6 +12,16 @@ body {
     font-size: 16px;
 }
 
+#root {
+    min-height: 100vh;
+}
+
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .main {
     display: flex;
     flex: 1;

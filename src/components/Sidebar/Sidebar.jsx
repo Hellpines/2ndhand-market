@@ -24,8 +24,8 @@ const ChevronIcon = ({ isOpen, color = '#2D3748' }) => (
 
 export default function Sidebar({ activeDepartment = 'new', activeCategory, onSelectCategory }) {
   const { data: categoryTree, isLoading } = useGetCategoriesTreeQuery();
-  const [openSection, setOpenSection] = useState('Accessories');
-  const [openSubSection, setOpenSubSection] = useState('Watches & Jewellery');
+  const [openSection, setOpenSection] = useState('');
+  const [openSubSection, setOpenSubSection] = useState('');
 
   if (isLoading) return <aside className={style.sidebar}>Loading...</aside>;
 

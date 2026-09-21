@@ -1,8 +1,6 @@
 .content {
   max-width: 800px;
-  background-color: #f9f9fb;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding: 40px 0;
 }
 
 .hero {
@@ -13,21 +11,20 @@
 .title {
   font-size: 32px;
   font-weight: 700;
-  color: #1c1c1e;
-  margin: 0 0 8px 0;
+  color: #333333;
+  margin-bottom: 16px;
 }
 
 .subtitle {
   font-size: 15px;
-  color: #8e8e93;
-  margin: 0;
+  color: rgb(51, 51, 51, 0.8);
 }
 
 .card {
   background: #ffffff;
-  border: 1px solid #e5e5ea;
+  border: 1px solid rgb(51, 51, 51, 0.2);
   border-radius: 16px;
-  padding: 36px 32px;
+  padding: 36px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
 }
 
@@ -52,20 +49,19 @@
 .field label {
   font-size: 13px;
   font-weight: 600;
-  color: #3a3a3c;
+  color: #333333;
 }
 
 .field input,
 .field textarea {
   width: 100%;
   padding: 12px 14px;
-  border: 1px solid #d1d1d6;
+  border: 1px solid rgb(51, 51, 51, 0.2);
   border-radius: 10px;
   font-size: 14px;
   outline: none;
   font-family: inherit;
-  box-sizing: border-box;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: 0.2s;
 }
 
 .field input:focus,
@@ -85,7 +81,7 @@
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: 0.2s;
 }
 
 .submitBtn:hover {
@@ -113,14 +109,14 @@
 
 .successState h2 {
   font-size: 22px;
-  color: #1c1c1e;
+  color: #333333;
   margin: 0 0 8px 0;
 }
 
 .successState p {
-  color: #8e8e93;
+  color: rgb(51, 51, 51, 0.8);
   font-size: 14px;
-  margin: 0 0 24px 0;
+  margin-bottom: 24px;
 }
 
 @media (max-width: 600px) {

@@ -93,12 +93,3 @@ export const CATEGORY_TREE = [
     ],
   },
 ];
-
-export const getDepartmentBySlug = (slug) => {
-  for (const [dept, slugs] of Object.entries(DEPARTMENT_MAP)) {
-    if (dept !== 'new' && Array.isArray(slugs) && slugs.includes(slug)) {
-      return dept;
-    }
-  }
-  return 'women';
-};

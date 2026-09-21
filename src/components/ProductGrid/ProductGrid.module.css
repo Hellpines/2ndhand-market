@@ -19,8 +19,6 @@
     opacity: 0.6;
 }
 
-/* ProductGrid.module.css */
-
 .skeletonCard {
   display: flex;
   flex-direction: column;

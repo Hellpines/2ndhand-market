@@ -1,6 +1,6 @@
 # 2ndhand-market
 
-Live demo: https://vercel.com/ilyas-projects-9436606d/2ndhand-market-jugc/8k1h7d9e1pYqZVQj9rsdXxVdmnG9
+Live demo: https://2ndhand-market-jugc-8oxa55yld-ilyas-projects-9436606d.vercel.app/
 
 Marketplace application for second-hand goods with a product catalog, filtering, user authentication, wishlist, shopping cart, and personal account features.
 

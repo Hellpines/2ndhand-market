@@ -6,8 +6,18 @@ import FilterBar from '../FilterBar/FilterBar';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import { filterProducts } from '../../helpers/filterProducts';
 import { selectFilters, resetAllFilters, toggleFilterValue } from '../../store/slices/filterSlice';
-import { selectPurchasedOrders } from '../../store/slices/purchasedSlice'; // 1. Импортируем селектор
+import { selectPurchasedOrders } from '../../store/slices/purchasedSlice';
 import style from './ProductGrid.module.css';
+
+function ProductSkeleton() {
+  return (
+    <div className={style.skeletonCard}>
+      <div className={style.skeletonImage} />
+      <div className={style.skeletonTitle} />
+      <div className={style.skeletonPrice} />
+    </div>
+  );
+}
 
 export default function ProductGrid({
   activeDepartment,
@@ -25,7 +35,7 @@ export default function ProductGrid({
 
   const rawProducts = useMemo(() => {
     const products = data?.products || [];
-    
+
     const purchasedIds = new Set(
       purchasedOrders.flatMap((order) => order.items.map((item) => item.id))
     );
@@ -129,8 +139,13 @@ export default function ProductGrid({
         activeCategory={activeCategory}
         onSelectCategory={onSelectCategory}
       />
-
-      {filteredProducts.length === 0 ? (
+      {isLoading ? (
+        <div className={style.grid}>
+          {Array.from({ length: 8 }).map((_, index) => (
+            <ProductSkeleton key={index} />
+          ))}
+        </div>
+      ) : filteredProducts.length === 0 ? (
         <div className={style.status}>No products found...</div>
       ) : (
         <div className={style.grid}>

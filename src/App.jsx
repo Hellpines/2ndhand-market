@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { lazy, useState } from 'react';
 import style from './App.module.css';
 import Departments from './components/Departments/Departments';
-import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import ProductGrid from './components/ProductGrid/ProductGrid';
 import Sidebar from './components/Sidebar/Sidebar';
+
+const Footer = lazy(() => import('./components/Footer/Footer'));
 
 export default function App() {
   const [activeDepartment, setActiveDepartment] = useState('women');

@@ -1,6 +1,8 @@
+import { lazy } from 'react';
 import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
 import styles from './Layout.module.css';
+
+const Footer = lazy(() => import('../Footer/Footer'));
 
 export default function Layout({ children, isAuth = false, contentClassName = '' }) {
   return (

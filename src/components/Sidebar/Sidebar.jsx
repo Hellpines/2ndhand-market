@@ -1,9 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import { useGetCategoriesTreeQuery } from '../../services/productsApi';
-import { DEPARTMENT_MAP } from '../../constants/categories';
+import { DEPARTMENT_MAP, CATEGORY_TREE } from '../../constants/categories';
 import style from './Sidebar.module.css';
 
-const ChevronIcon = React.memo(({ isOpen, color = '#2D3748' }) => (
+const ChevronIcon = React.memo(({ isOpen, color = '#333333' }) => (
   <svg
     className={`${style.arrow} ${isOpen ? style.open : ''}`}
     width="12"
@@ -23,13 +22,11 @@ const ChevronIcon = React.memo(({ isOpen, color = '#2D3748' }) => (
 ));
 
 export default function Sidebar({ activeDepartment = 'new', activeCategory, onSelectCategory }) {
-  const { data: categoryTree, isLoading } = useGetCategoriesTreeQuery();
   const [openSection, setOpenSection] = useState(null);
   const [openSubSection, setOpenSubSection] = useState(null);
+  const categoryTree = CATEGORY_TREE;
 
   const filteredTree = useMemo(() => {
-    if (!categoryTree) return [];
-
     const allowedSlugs = activeDepartment ? DEPARTMENT_MAP[activeDepartment] : 'all';
 
     return categoryTree
@@ -49,8 +46,6 @@ export default function Sidebar({ activeDepartment = 'new', activeCategory, onSe
       })
       .filter((group) => group.subcategories && group.subcategories.length > 0);
   }, [categoryTree, activeDepartment]);
-
-  if (isLoading) return <aside className={style.sidebar}>Loading...</aside>;
 
   return (
     <aside className={style.sidebar}>

@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { CATEGORY_TREE } from '../constants/categories';
 
 export const productsApi = createApi({
   reducerPath: 'productsApi',
@@ -7,11 +6,6 @@ export const productsApi = createApi({
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: () => 'c/e43c-00fa-4b0f-bf65',
-    }),
-
-    getCategoriesTree: builder.query({
-      query: () => 'c/e43c-00fa-4b0f-bf65',
-      transformResponse: () => CATEGORY_TREE,
     }),
 
     getProductById: builder.query({
@@ -25,6 +19,5 @@ export const productsApi = createApi({
 
 export const {
   useGetProductsQuery,
-  useGetCategoriesTreeQuery,
   useGetProductByIdQuery,
 } = productsApi;

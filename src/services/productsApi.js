@@ -1,16 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { CATEGORY_TREE } from '../constants/categories';
 
-export const fetchProducts = async () => {
-  const response = await fetch('/api-proxy/c/e43c-00fa-4b0f-bf65');
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch products');
-  }
-
-  return response.json();
-};
-
 export const productsApi = createApi({
   reducerPath: 'productsApi',
   baseQuery: fetchBaseQuery({ baseUrl: '/api-proxy/' }),

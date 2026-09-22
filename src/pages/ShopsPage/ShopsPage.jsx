@@ -1,7 +1,7 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchProducts } from '../../services/productsApi';
+import { useGetProductsQuery } from '../../services/productsApi';
 import { toggleFilterValue, resetAllFilters } from '../../store/slices/filterSlice';
 import Layout from '../../components/Layout/Layout';
 import style from './ShopsPage.module.css';
@@ -9,41 +9,10 @@ import style from './ShopsPage.module.css';
 export default function ShopsPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const { data, isLoading, isError } = useGetProductsQuery();
+  const products = data?.products || [];
 
   const [searchTerm, setSearchTerm] = useState('');
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const loadProducts = async () => {
-      try {
-        setIsLoading(true);
-        setIsError(false);
-        const response = await fetchProducts();
-
-        if (isMounted) {
-          setProducts(response.products || []);
-        }
-      } catch {
-        if (isMounted) {
-          setIsError(true);
-        }
-      } finally {
-        if (isMounted) {
-          setIsLoading(false);
-        }
-      }
-    };
-
-    loadProducts();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
 
   const shopsList = useMemo(() => {
     const shopMap = new Map();

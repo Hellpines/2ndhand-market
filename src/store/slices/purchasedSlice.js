@@ -20,16 +20,7 @@ const purchasedSlice = createSlice({
   },
   reducers: {
     addPurchasedOrder: (state, action) => {
-      const newOrder = {
-        orderId: `ORD-${Date.now()}`,
-        purchaseDate: new Date().toLocaleDateString('en-GB', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
-        }),
-        ...action.payload,
-      };
-      state.purchasedOrders.unshift(newOrder);
+      state.purchasedOrders.unshift(action.payload);
     },
   },
   extraReducers: (builder) => {

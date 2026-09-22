@@ -22,6 +22,12 @@ export default function MyItemsPage() {
 
     dispatch(
       addPurchasedOrder({
+        orderId: `ORD-${Date.now()}`,
+        purchaseDate: new Date().toLocaleDateString('en-GB', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+        }),
         shopName: cartItems[0]?.shop || '2ND HAND MARKET',
         items: cartItems,
       })
@@ -33,6 +39,12 @@ export default function MyItemsPage() {
   const handleCheckoutSingle = (product) => {
     dispatch(
       addPurchasedOrder({
+        orderId: `ORD-${Date.now()}`,
+        purchaseDate: new Date().toLocaleDateString('en-GB', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+        }),
         shopName: product.shop || '2ND HAND MARKET',
         items: [product],
       })

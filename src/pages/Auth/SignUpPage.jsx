@@ -43,11 +43,11 @@ export default function SignUpPage() {
       password: formData.password,
     };
 
-    existingUsers.push(newUser);
+    const { password, ...safeUser } = newUser;
+    existingUsers.push(safeUser);
     write('users', existingUsers);
 
-    const { password, ...userSession } = newUser;
-    dispatch(loginSuccess(userSession));
+    dispatch(loginSuccess(safeUser));
     navigate('/');
   };
 

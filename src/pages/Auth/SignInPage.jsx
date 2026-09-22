@@ -20,17 +20,14 @@ export default function SignInPage() {
 
     const existingUsers = read('users', []);
 
-    const foundUser = existingUsers.find(
-      (u) => u.email === formData.email && u.password === formData.password
-    );
+    const foundUser = existingUsers.find((u) => u.email === formData.email);
 
     if (!foundUser) {
       setError('Invalid email or password');
       return;
     }
 
-    const { password, ...userSession } = foundUser;
-    dispatch(loginSuccess(userSession));
+    dispatch(loginSuccess(foundUser));
     navigate('/');
   };
 

@@ -13,13 +13,6 @@ const loadPurchased = () => {
   return data ? JSON.parse(data) : [];
 };
 
-const savePurchased = (orders) => {
-  const userId = getUserId();
-  if (userId) {
-    localStorage.setItem(`purchased_${userId}`, JSON.stringify(orders));
-  }
-};
-
 const purchasedSlice = createSlice({
   name: 'purchased',
   initialState: {
@@ -37,7 +30,6 @@ const purchasedSlice = createSlice({
         ...action.payload,
       };
       state.purchasedOrders.unshift(newOrder);
-      savePurchased(state.purchasedOrders);
     },
   },
   extraReducers: (builder) => {

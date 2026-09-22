@@ -13,13 +13,6 @@ const loadCart = () => {
   return data ? JSON.parse(data) : [];
 };
 
-const saveCart = (items) => {
-  const userId = getUserId();
-  if (userId) {
-    localStorage.setItem(`cart_${userId}`, JSON.stringify(items));
-  }
-};
-
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
@@ -31,16 +24,13 @@ const cartSlice = createSlice({
       const exists = state.items.some((item) => item.id === product.id);
       if (!exists) {
         state.items.push(product);
-        saveCart(state.items);
       }
     },
     removeFromCart: (state, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
-      saveCart(state.items);
     },
     clearCart: (state) => {
       state.items = [];
-      saveCart(state.items);
     },
   },
   extraReducers: (builder) => {

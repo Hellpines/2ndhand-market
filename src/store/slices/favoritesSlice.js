@@ -13,13 +13,6 @@ const loadFavorites = () => {
   return data ? JSON.parse(data) : [];
 };
 
-const saveFavorites = (items) => {
-  const userId = getUserId();
-  if (userId) {
-    localStorage.setItem(`favorites_${userId}`, JSON.stringify(items));
-  }
-};
-
 const favoritesSlice = createSlice({
   name: 'favorites',
   initialState: {
@@ -34,7 +27,6 @@ const favoritesSlice = createSlice({
       } else {
         state.items.splice(index, 1);
       }
-      saveFavorites(state.items);
     },
   },
   extraReducers: (builder) => {

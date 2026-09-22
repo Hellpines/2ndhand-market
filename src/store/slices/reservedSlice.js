@@ -13,13 +13,6 @@ const loadReserved = () => {
   return data ? JSON.parse(data) : [];
 };
 
-const saveReserved = (shops) => {
-  const userId = getUserId();
-  if (userId) {
-    localStorage.setItem(`reserved_${userId}`, JSON.stringify(shops));
-  }
-};
-
 const reservedSlice = createSlice({
   name: 'reserved',
   initialState: {
@@ -51,7 +44,6 @@ const reservedSlice = createSlice({
       if (!exists) {
         shopGroup.items.push(product);
       }
-      saveReserved(state.reservedShops);
     },
     removeFromReserved: (state, action) => {
       const { shopId, productId } = action.payload;
@@ -62,7 +54,6 @@ const reservedSlice = createSlice({
           state.reservedShops = state.reservedShops.filter((g) => g.shopId !== shopId);
         }
       }
-      saveReserved(state.reservedShops);
     },
   },
   extraReducers: (builder) => {

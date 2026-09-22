@@ -106,7 +106,6 @@ export default function ProductGrid({
     return result;
   }, [rawProducts, activeDepartment, activeCategory, filters, sortBy]);
 
-  if (isLoading) return <div className={style.status}>Loading products...</div>;
   if (isError) return <div className={style.status}>Error occurred while loading products</div>;
 
   return (
@@ -137,7 +136,7 @@ export default function ProductGrid({
         }}
         availableOptions={availableOptions}
         activeCategory={activeCategory}
-        onSelectCategory={onSelectCategory}
+        onSelectCategory={onSelectCategory} 
       />
       {isLoading ? (
         <div className={style.grid}>

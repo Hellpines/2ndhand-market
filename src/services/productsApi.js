@@ -1,0 +1,23 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+export const productsApi = createApi({
+  reducerPath: 'productsApi',
+  baseQuery: fetchBaseQuery({ baseUrl: '/api-proxy/' }),
+  endpoints: (builder) => ({
+    getProducts: builder.query({
+      query: () => 'c/e43c-00fa-4b0f-bf65',
+    }),
+
+    getProductById: builder.query({
+      query: () => 'c/e43c-00fa-4b0f-bf65',
+      transformResponse: (response, meta, id) => {
+        return response.products?.find((item) => String(item.id) === String(id));
+      },
+    }),
+  }),
+});
+
+export const {
+  useGetProductsQuery,
+  useGetProductByIdQuery,
+} = productsApi;

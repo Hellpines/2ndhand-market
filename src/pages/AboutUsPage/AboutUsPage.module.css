@@ -1,0 +1,36 @@
+.content {
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 64px 0;
+}
+
+.title {
+    font-size: 32px;
+    margin-bottom: 24px;
+    color: #333333;
+}
+
+.description {
+    font-size: 16px;
+    color: rgb(51, 51, 51, 0.8);
+    line-height: 1.6;
+    max-width: 680px;
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 32px 12px;
+    }
+
+    .title {
+        font-size: 24px;
+    }
+
+    .description {
+        font-size: 15px;
+    }
+}

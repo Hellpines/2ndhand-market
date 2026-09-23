@@ -1,0 +1,117 @@
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { selectFavoritesCount } from '../../store/slices/favoritesSlice';
+import { selectCartCount } from '../../store/slices/cartSlice';
+import { selectSearchQuery, setSearchQuery } from '../../store/slices/filterSlice';
+
+import Logo from '../../assets/logo.svg';
+import styles from './Header.module.css';
+import SearchIcon from '../../assets/search.svg';
+import HeartIcon from '../../assets/heart.svg';
+import BasketIcon from '../../assets/basket.svg';
+import UserIcon from '../../assets/user.svg';
+import { selectIsAuthenticated } from '../../store/slices/authSlice';
+
+export default function Header({ isAuth = false }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const favoritesCount = useSelector(selectFavoritesCount);
+  const cartCount = useSelector(selectCartCount);
+  const searchQuery = useSelector(selectSearchQuery);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+
+    dispatch(setSearchQuery(value));
+
+    if (location.pathname !== '/' && value.trim() !== '') {
+      navigate('/');
+    }
+  };
+
+  if (isAuth) {
+    return (
+      <header className={styles.authHeader}>
+        <Link to='#' className={styles.logoLink}>
+          <Logo className={styles.logoImg} />
+          <div className={styles.logoText}>
+            <span>2ND</span>
+            <span>HAND</span>
+            <span>MARKET</span>
+          </div>
+        </Link>
+      </header>
+    );
+  }
+
+  return (
+    <header className={styles.header}>
+      <div className={styles.container}>
+        <div className={styles.leftContainer}>
+          <Link to='/' className={styles.logoLink} aria-label='Go to homepage'>
+            <Logo className={styles.logoImg} />
+            <div className={styles.logoText}>
+              <span>2ND</span>
+              <span>HAND</span>
+              <span>MARKET</span>
+            </div>
+          </Link>
+
+          <div className={styles.searchContainer}>
+            <label htmlFor='site-search' className={styles.visuallyHidden}>Search products</label>
+            <SearchIcon className={styles.searchIcon} />
+            <input
+              id='site-search'
+              type='text'
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className={styles.searchInput}
+              placeholder='Search products'
+              aria-label='Search products'
+            />
+          </div>
+        </div>
+
+        <div className={styles.navActions}>
+          <nav className={styles.navLinks} aria-label='Main navigation'>
+            <Link to='/about-us' className={styles.navLink}>About us</Link>
+            <Link to='/shops' className={styles.navLink}>All shops</Link>
+            <Link to='/merchant' className={styles.navLink}>Become a merchant</Link>
+          </nav>
+
+          <div className={styles.actions}>
+            <Link
+              to={`/${isAuthenticated ? './wish-list' : './login'}`}
+              className={styles.actionItem}
+              aria-label={isAuthenticated ? `Open wishlist with ${favoritesCount} items` : 'Open login'}
+            >
+              <HeartIcon className={favoritesCount > 0 ? styles.heartIcon : styles.heartIconInactive} />
+              <span aria-hidden='true'>{favoritesCount}</span>
+            </Link>
+
+            <Link
+              to={`/${isAuthenticated ? './my-items' : './login'}`}
+              className={styles.actionItem}
+              aria-label={isAuthenticated ? `Open cart with ${cartCount} items` : 'Open login'}
+            >
+              <BasketIcon className={styles.basketIcon} />
+              <span aria-hidden='true'>{cartCount}</span>
+            </Link>
+
+            <Link
+              to={`/${isAuthenticated ? './profile' : './login'}`}
+              className={styles.actionItem}
+              aria-label={isAuthenticated ? 'Open profile page' : 'Open login page'}
+            >
+              <UserIcon className={styles.userIcon} />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}

@@ -1,0 +1,240 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.dropdownsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.dropdownWrapper {
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .dropdownsRow {
+    gap: 8px;
+  }
+
+  .select {
+    min-width: 120px;
+    width: 100%;
+  }
+
+  .saleBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 520px) {
+  .container {
+    gap: 12px;
+  }
+
+  .dropdownsRow,
+  .chipsRow,
+  .sortRow {
+    width: 100%;
+  }
+
+  .sortRow {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+.select {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  min-width: 130px;
+  border-radius: 20px;
+  padding: 10px 16px;
+  font-size: 14px;
+  color: #333333;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.select:hover {
+  border-color: #333333;
+}
+
+.activeSelect {
+  border-color: #FF2D55;
+  color: #333333;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  max-height: 220px;
+  overflow-y: auto;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdownMenu::-webkit-scrollbar {
+  width: 5px;
+}
+
+.dropdownMenu::-webkit-scrollbar-thumb {
+  background-color: #e2e8f0;
+  border-radius: 10px;
+}
+
+.checkboxOption {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  font-size: 14px;
+  color: #333333;
+  cursor: pointer;
+  transition: 0.15s;
+  user-select: none;
+}
+
+.checkboxOption:hover {
+  background-color: #f8fafc;
+}
+
+.checkboxOption input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+  accent-color: #FF2D55;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.saleBtn {
+  background-color: #FF2D55;
+  opacity: 0.5;
+  min-width: 120px;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: 0.2s;
+}
+
+.saleBtn .dismissIcon {
+  width: 12px;
+  height: 12px;
+  color: #ffffff;
+  transition: 0.15s;
+}
+
+.saleBtn:hover {
+  opacity: 0.6;
+}
+
+.saleBtn:active {
+  transform: scale(0.98);
+}
+
+.saleActive {
+  opacity: 0.7;
+}
+
+.chipsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.chip {
+  background-color: #e2e2e4;
+  color: #333333;
+  border-radius: 20px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chipRemove {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.chipRemove .dismissIcon {
+  width: 12px;
+  height: 12px;
+  color: #757575;
+  transition: 0.15s;
+}
+
+.chipRemove:hover .dismissIcon {
+  color: #333333;
+}
+
+.sortRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.sortLabel {
+  color: #333333;
+  opacity: 0.5;
+}
+
+.sortBtn {
+  background: transparent;
+  border: none;
+  color: #333333;
+  opacity: 0.7;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 0;
+  transition: 0.2s;
+}
+
+.sortBtn:hover {
+  color: #F4717A;
+  opacity: 0.7;
+}
+
+.activeSort {
+  color: #F4717A;
+  font-weight: 700;
+}
+
+.arrow {
+  transition: 0.2s;
+}
+
+.arrowUp {
+  transform: rotate(180deg);
+}

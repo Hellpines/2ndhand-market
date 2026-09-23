@@ -20,18 +20,28 @@ export default function MyItemsPage() {
   const handleCheckoutAll = () => {
     if (cartItems.length === 0) return;
 
-    dispatch(
-      addPurchasedOrder({
-        orderId: `ORD-${Date.now()}`,
-        purchaseDate: new Date().toLocaleDateString('en-GB', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
-        }),
-        shopName: cartItems[0]?.shop || '2ND HAND MARKET',
-        items: cartItems,
-      })
-    );
+    const ordersByShop = cartItems.reduce((acc, item) => {
+      const shop = item.shop || '2ND HAND MARKET';
+      if (!acc[shop]) acc[shop] = [];
+      acc[shop].push(item);
+      return acc;
+    }, {});
+
+    Object.entries(ordersByShop).forEach(([shopName, items]) => {
+      dispatch(
+        addPurchasedOrder({
+          orderId: `ORD-${Date.now()}`,
+          purchaseDate: new Date().toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+          }),
+          shopName,
+          items,
+        })
+      );
+    });
+
     dispatch(clearCart());
     setActiveTab('purchased');
   };

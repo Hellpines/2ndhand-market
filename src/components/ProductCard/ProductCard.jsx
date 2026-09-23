@@ -76,7 +76,7 @@ export default function ProductCard({ product, variant = 'catalog', onCheckoutSi
   let oldPriceFormatted = null;
   if (originalPrice > price) {
     oldPriceFormatted = `${originalPrice.toFixed(2).replace('.', ',')} €`;
-  } else if (discountPercent > 0) {
+  } else if (discountPercent > 0 && discountPercent < 100) {
     const calculatedOldPrice = price / (1 - discountPercent / 100);
     if (calculatedOldPrice > price) {
       oldPriceFormatted = `${calculatedOldPrice.toFixed(2).replace('.', ',')} €`;
